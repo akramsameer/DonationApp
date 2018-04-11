@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ChairtyApp.Models.donationTbl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.isCredit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.costOfDonation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userTbl.userName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.isCredit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.costOfDonation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userTbl.userName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.donationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.donationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.donationId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,58 @@
+*{
+    direction: ltr;
+}
+h1, h2, h3, h4, h5, h6, p, blockquote, ul, ol, il, a, input{
+    direction: ltr;
+}
+ul.nav.navbar-nav.contacts{
+    float: right;
+}
+
+ul.nav.navbar-nav.menu{
+    float: right;
+}
+
+.about .form h3 {
+    color: #245b95;
+    text-align: left;
+    direction: ltr;
+}
+
+.about .form h3 span{
+    margin-right: 20px;
+}
+article .details h3{
+    direction: ltr;
+}
+
+article .details p{
+    direction: ltr;
+}
+article .details .read-more{
+    direction: rtl;
+}
+.fo-menu {
+    border: none;
+    border-left: 2px solid rgba(0, 0, 0, .3);
+    text-align: left;
+}
+
+.fo-menu ul li{
+    text-align: left;
+}
+
+.subscribe{
+    border: none;
+    border-left: 2px solid rgba(0, 0, 0, .3);
+}
+
+.footer-top .location ul li{
+    text-align: left;
+}
+
+.subscribe h4{
+    text-align: left;
+}
+.subscribe p{
+    text-align: left;
+}

@@ -1,0 +1,75 @@
+﻿@model ChairtyApp.Models.userTbl
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>userTbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phoneNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phoneNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Magnitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Magnitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Landitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Landitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creditNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creditNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creditType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creditType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ruleTbl.ruleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ruleTbl.ruleName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.userId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

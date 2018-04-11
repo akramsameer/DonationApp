@@ -1,0 +1,35 @@
+﻿@model ChairtyApp.Models.requestTbl
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>requestTbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.probStatment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.probStatment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userTbl.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userTbl.userName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.requestId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

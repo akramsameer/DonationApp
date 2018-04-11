@@ -1,0 +1,35 @@
+﻿@model ChairtyApp.Models.advertiseTbl
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>advertiseTbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.advText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.advText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.advImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.advImage)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.adverId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

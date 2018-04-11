@@ -1,0 +1,43 @@
+﻿@model ChairtyApp.Models.donationTbl
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>donationTbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.isCredit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isCredit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costOfDonation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costOfDonation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userTbl.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userTbl.userName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.donationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>    

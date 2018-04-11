@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="chairtyDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="advertiseTbl">
+          <Key>
+            <PropertyRef Name="adverId" />
+          </Key>
+          <Property Name="adverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="advText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="advImage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="donationTbl">
+          <Key>
+            <PropertyRef Name="donationId" />
+          </Key>
+          <Property Name="donationId" Type="int" Nullable="false" />
+          <Property Name="isCredit" Type="bit" Nullable="false" />
+          <Property Name="costOfDonation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="newsTbl">
+          <Key>
+            <PropertyRef Name="newsId" />
+          </Key>
+          <Property Name="newsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newsDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="newsImage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="permissionTbl">
+          <Key>
+            <PropertyRef Name="perId" />
+          </Key>
+          <Property Name="perId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="perName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ruleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requestTbl">
+          <Key>
+            <PropertyRef Name="requestId" />
+          </Key>
+          <Property Name="requestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="probStatment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ruleTbl">
+          <Key>
+            <PropertyRef Name="ruleId" />
+          </Key>
+          <Property Name="ruleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ruleName" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="userTbl">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phoneNum" Type="nvarchar" MaxLength="20" />
+          <Property Name="Magnitude" Type="real" Nullable="false" />
+          <Property Name="Landitude" Type="real" Nullable="false" />
+          <Property Name="creditNum" Type="nvarchar" MaxLength="30" />
+          <Property Name="creditType" Type="nvarchar" MaxLength="20" />
+          <Property Name="ruleId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="vediosTbl">
+          <Key>
+            <PropertyRef Name="vedioId" />
+          </Key>
+          <Property Name="vedioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vedioUrl" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_donationTbl_userTbl">
+          <End Role="userTbl" Type="Self.userTbl" Multiplicity="1" />
+          <End Role="donationTbl" Type="Self.donationTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTbl">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="donationTbl">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_permissionTbl_ruleTbl">
+          <End Role="ruleTbl" Type="Self.ruleTbl" Multiplicity="1" />
+          <End Role="permissionTbl" Type="Self.permissionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruleTbl">
+              <PropertyRef Name="ruleId" />
+            </Principal>
+            <Dependent Role="permissionTbl">
+              <PropertyRef Name="ruleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requestTbl_userTbl">
+          <End Role="userTbl" Type="Self.userTbl" Multiplicity="1" />
+          <End Role="requestTbl" Type="Self.requestTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTbl">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="requestTbl">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userTbl_ruleTbl">
+          <End Role="ruleTbl" Type="Self.ruleTbl" Multiplicity="1" />
+          <End Role="userTbl" Type="Self.userTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruleTbl">
+              <PropertyRef Name="ruleId" />
+            </Principal>
+            <Dependent Role="userTbl">
+              <PropertyRef Name="ruleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="chairtyDbModelStoreContainer">
+          <EntitySet Name="advertiseTbl" EntityType="Self.advertiseTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donationTbl" EntityType="Self.donationTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="newsTbl" EntityType="Self.newsTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permissionTbl" EntityType="Self.permissionTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="requestTbl" EntityType="Self.requestTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ruleTbl" EntityType="Self.ruleTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userTbl" EntityType="Self.userTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vediosTbl" EntityType="Self.vediosTbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_donationTbl_userTbl" Association="Self.FK_donationTbl_userTbl">
+            <End Role="userTbl" EntitySet="userTbl" />
+            <End Role="donationTbl" EntitySet="donationTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_permissionTbl_ruleTbl" Association="Self.FK_permissionTbl_ruleTbl">
+            <End Role="ruleTbl" EntitySet="ruleTbl" />
+            <End Role="permissionTbl" EntitySet="permissionTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requestTbl_userTbl" Association="Self.FK_requestTbl_userTbl">
+            <End Role="userTbl" EntitySet="userTbl" />
+            <End Role="requestTbl" EntitySet="requestTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userTbl_ruleTbl" Association="Self.FK_userTbl_ruleTbl">
+            <End Role="ruleTbl" EntitySet="ruleTbl" />
+            <End Role="userTbl" EntitySet="userTbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="chairtyDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="advertiseTbl">
+          <Key>
+            <PropertyRef Name="adverId" />
+          </Key>
+          <Property Name="adverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="advText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="advImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="donationTbl">
+          <Key>
+            <PropertyRef Name="donationId" />
+          </Key>
+          <Property Name="donationId" Type="Int32" Nullable="false" />
+          <Property Name="isCredit" Type="Boolean" Nullable="false" />
+          <Property Name="costOfDonation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="userTbl" Relationship="Self.FK_donationTbl_userTbl" FromRole="donationTbl" ToRole="userTbl" />
+        </EntityType>
+        <EntityType Name="newsTbl">
+          <Key>
+            <PropertyRef Name="newsId" />
+          </Key>
+          <Property Name="newsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="newsImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="permissionTbl">
+          <Key>
+            <PropertyRef Name="perId" />
+          </Key>
+          <Property Name="perId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="perName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ruleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ruleTbl" Relationship="Self.FK_permissionTbl_ruleTbl" FromRole="permissionTbl" ToRole="ruleTbl" />
+        </EntityType>
+        <EntityType Name="requestTbl">
+          <Key>
+            <PropertyRef Name="requestId" />
+          </Key>
+          <Property Name="requestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="probStatment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="userTbl" Relationship="Self.FK_requestTbl_userTbl" FromRole="requestTbl" ToRole="userTbl" />
+        </EntityType>
+        <EntityType Name="ruleTbl">
+          <Key>
+            <PropertyRef Name="ruleId" />
+          </Key>
+          <Property Name="ruleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ruleName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="permissionTbls" Relationship="Self.FK_permissionTbl_ruleTbl" FromRole="ruleTbl" ToRole="permissionTbl" />
+          <NavigationProperty Name="userTbls" Relationship="Self.FK_userTbl_ruleTbl" FromRole="ruleTbl" ToRole="userTbl" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="userTbl">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phoneNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Magnitude" Type="Single" Nullable="false" />
+          <Property Name="Landitude" Type="Single" Nullable="false" />
+          <Property Name="creditNum" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="creditType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ruleId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="donationTbls" Relationship="Self.FK_donationTbl_userTbl" FromRole="userTbl" ToRole="donationTbl" />
+          <NavigationProperty Name="requestTbls" Relationship="Self.FK_requestTbl_userTbl" FromRole="userTbl" ToRole="requestTbl" />
+          <NavigationProperty Name="ruleTbl" Relationship="Self.FK_userTbl_ruleTbl" FromRole="userTbl" ToRole="ruleTbl" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vediosTbl">
+          <Key>
+            <PropertyRef Name="vedioId" />
+          </Key>
+          <Property Name="vedioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vedioUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_donationTbl_userTbl">
+          <End Role="userTbl" Type="Self.userTbl" Multiplicity="1" />
+          <End Role="donationTbl" Type="Self.donationTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTbl">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="donationTbl">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_permissionTbl_ruleTbl">
+          <End Role="ruleTbl" Type="Self.ruleTbl" Multiplicity="1" />
+          <End Role="permissionTbl" Type="Self.permissionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruleTbl">
+              <PropertyRef Name="ruleId" />
+            </Principal>
+            <Dependent Role="permissionTbl">
+              <PropertyRef Name="ruleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requestTbl_userTbl">
+          <End Role="userTbl" Type="Self.userTbl" Multiplicity="1" />
+          <End Role="requestTbl" Type="Self.requestTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTbl">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="requestTbl">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userTbl_ruleTbl">
+          <End Role="ruleTbl" Type="Self.ruleTbl" Multiplicity="1" />
+          <End Role="userTbl" Type="Self.userTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruleTbl">
+              <PropertyRef Name="ruleId" />
+            </Principal>
+            <Dependent Role="userTbl">
+              <PropertyRef Name="ruleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="chairtyDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="advertiseTbls" EntityType="Self.advertiseTbl" />
+          <EntitySet Name="donationTbls" EntityType="Self.donationTbl" />
+          <EntitySet Name="newsTbls" EntityType="Self.newsTbl" />
+          <EntitySet Name="permissionTbls" EntityType="Self.permissionTbl" />
+          <EntitySet Name="requestTbls" EntityType="Self.requestTbl" />
+          <EntitySet Name="ruleTbls" EntityType="Self.ruleTbl" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="userTbls" EntityType="Self.userTbl" />
+          <EntitySet Name="vediosTbls" EntityType="Self.vediosTbl" />
+          <AssociationSet Name="FK_donationTbl_userTbl" Association="Self.FK_donationTbl_userTbl">
+            <End Role="userTbl" EntitySet="userTbls" />
+            <End Role="donationTbl" EntitySet="donationTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_permissionTbl_ruleTbl" Association="Self.FK_permissionTbl_ruleTbl">
+            <End Role="ruleTbl" EntitySet="ruleTbls" />
+            <End Role="permissionTbl" EntitySet="permissionTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requestTbl_userTbl" Association="Self.FK_requestTbl_userTbl">
+            <End Role="userTbl" EntitySet="userTbls" />
+            <End Role="requestTbl" EntitySet="requestTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userTbl_ruleTbl" Association="Self.FK_userTbl_ruleTbl">
+            <End Role="ruleTbl" EntitySet="ruleTbls" />
+            <End Role="userTbl" EntitySet="userTbls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="chairtyDbModelStoreContainer" CdmEntityContainer="chairtyDbEntities">
+          <EntitySetMapping Name="advertiseTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.advertiseTbl">
+              <MappingFragment StoreEntitySet="advertiseTbl">
+                <ScalarProperty Name="adverId" ColumnName="adverId" />
+                <ScalarProperty Name="advText" ColumnName="advText" />
+                <ScalarProperty Name="advImage" ColumnName="advImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donationTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.donationTbl">
+              <MappingFragment StoreEntitySet="donationTbl">
+                <ScalarProperty Name="donationId" ColumnName="donationId" />
+                <ScalarProperty Name="isCredit" ColumnName="isCredit" />
+                <ScalarProperty Name="costOfDonation" ColumnName="costOfDonation" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="newsTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.newsTbl">
+              <MappingFragment StoreEntitySet="newsTbl">
+                <ScalarProperty Name="newsId" ColumnName="newsId" />
+                <ScalarProperty Name="newsDescription" ColumnName="newsDescription" />
+                <ScalarProperty Name="newsImage" ColumnName="newsImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permissionTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.permissionTbl">
+              <MappingFragment StoreEntitySet="permissionTbl">
+                <ScalarProperty Name="perId" ColumnName="perId" />
+                <ScalarProperty Name="perName" ColumnName="perName" />
+                <ScalarProperty Name="ruleId" ColumnName="ruleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requestTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.requestTbl">
+              <MappingFragment StoreEntitySet="requestTbl">
+                <ScalarProperty Name="requestId" ColumnName="requestId" />
+                <ScalarProperty Name="probStatment" ColumnName="probStatment" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ruleTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.ruleTbl">
+              <MappingFragment StoreEntitySet="ruleTbl">
+                <ScalarProperty Name="ruleId" ColumnName="ruleId" />
+                <ScalarProperty Name="ruleName" ColumnName="ruleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="chairtyDbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.userTbl">
+              <MappingFragment StoreEntitySet="userTbl">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="phoneNum" ColumnName="phoneNum" />
+                <ScalarProperty Name="Magnitude" ColumnName="Magnitude" />
+                <ScalarProperty Name="Landitude" ColumnName="Landitude" />
+                <ScalarProperty Name="creditNum" ColumnName="creditNum" />
+                <ScalarProperty Name="creditType" ColumnName="creditType" />
+                <ScalarProperty Name="ruleId" ColumnName="ruleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vediosTbls">
+            <EntityTypeMapping TypeName="chairtyDbModel.vediosTbl">
+              <MappingFragment StoreEntitySet="vediosTbl">
+                <ScalarProperty Name="vedioId" ColumnName="vedioId" />
+                <ScalarProperty Name="vedioUrl" ColumnName="vedioUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

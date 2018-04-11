@@ -1,0 +1,81 @@
+﻿@model ChairtyApp.Models.userTbl
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>userTbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phoneNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phoneNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Magnitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Magnitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Landitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Landitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creditNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creditNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creditType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creditType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ruleTbl.ruleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ruleTbl.ruleName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

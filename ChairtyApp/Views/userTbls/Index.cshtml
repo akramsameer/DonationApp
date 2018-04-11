@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ChairtyApp.Models.userTbl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phoneNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Magnitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Landitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.creditNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.creditType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ruleTbl.ruleName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phoneNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Magnitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Landitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.creditNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.creditType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ruleTbl.ruleName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.userId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.userId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.userId })
+        </td>
+    </tr>
+}
+
+</table>

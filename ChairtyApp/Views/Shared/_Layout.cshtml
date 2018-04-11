@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Doctor </title>
+    <link href="~/Content/Style/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Style/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Content/Style/frame.css" rel="stylesheet" />
+    <link href="~/Content/Style/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Style/animate.css" rel="stylesheet" />
+    <link href="~/Content/Style/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/Style/style.css" rel="stylesheet" />
+    <link href="~/Content/Style/mobile.css" rel="stylesheet" />
+    <link href="~/Content/Style/animate.css" rel="stylesheet" />
+    <link href="~/Content/Style/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Content/Style/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/Style/english.css" rel="stylesheet" />
+    <link href="~/Content/Style/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Style/style.css" rel="stylesheet" />
+    <link href="~/Content/Style/YouTubePopUp.css" rel="stylesheet" />
+    <link href="~/Content/Style/mobile.css" rel="stylesheet" />
+    <link href="~/Content/Style/style.1.css" rel="stylesheet" />
+    <link href="~/Content/Style/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Content/Style/frame.css" rel="stylesheet" />
+    <link href="~/Content/Style/bootstrap.css" rel="stylesheet" />
+    
+    <script src="~/Content/Scripts/jquery.js"></script>
+    <script src="~/Content/Scripts/animat.js"></script>
+    <script src="~/Content/Scripts/bootstrap-select.min.js"></script>
+    <script src="~/Content/Scripts/head.js"></script>
+    <script src="~/Content/Scripts/scrollspy.js"></script>
+    <script src="~/Content/Scripts/bootstrap.js"></script>
+    <script src="~/Content/Scripts/YouTubePopUp.jquery.js"></script>
+    <script src="~/Content/Scripts/jquery.fancybox.min.js"></script>
+
+    <!--<link rel="stylesheet" href="css/english.css">-->
+
+    @*@Styles.Render("~/Content/css")
+        
+        
+        
+
+    @Scripts.Render("~/bundles/modernizr")*@
+</head>
+
+<body style="min-height:100vh !important;">
+    <div class="master" style="min-height:100vh !important">
+
+        <header>
+            <div class="container-donate.html">
+                <div class="top-menu">
+                    <div class="social col-xs-12 col-sm-3">
+                        <ul>
+                            <li class="">
+                                <a href="#">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="date col-xs-12 col-sm-6">
+                        <ul class="list-inline pull-left flip sm-pull-none sm-text-center ">
+                            <li class=" pl-10 pr-10">
+                                <i class="fa fa-phone text-white"></i>
+                                <a class="text-white" href="#">123-456-789</a>
+                            </li>
+                            <li class="text-white  pl-10 pr-10">
+                                <i class="fa fa-clock-o text-white"></i> من الاثنين الي الجمعه 8:00 الي 2:00
+                            </li>
+                            <li class=" pl-10 pr-10">
+                                <i class="fa fa-envelope text-white"></i>
+                                <a class="text-white" href="#">contact@yourdomain.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="buttons col-xs-12 col-sm-3">
+                        <ul class="list-inline pull-left flip sm-pull-none sm-text-center ">
+                            <li>
+                                @* TODO *@
+                                <a class="btn btn-default btn-color" href="donate.html">تبرع الآن</a>
+                            </li>
+                            <li>
+                                @Html.ActionLink("إنضم لنا", "Create", "userTbls", new { area = "" }, new { @class = "btn btn-default btn-color" })
+                            </li>
+                            <li>
+                                @* TODO *@
+                                <a class="btn btn-default btn-color" href="add-status.html">إضافه حاله ! </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        @RenderBody()
+
+        <footer>
+            <div class="footer-bg">
+                <div class="container">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="about">
+                            <h2> كلمات تعريفيه عن الجمعيه </h2>
+
+                            <p class="about-text">
+                                كلمات تعريفيه عن الجمعيه تكتب هنا
+                            </p>
+
+                            <p class="doc">
+                                تعريف عن الدكتور موسس الجمعيةتعريف عن الدكتور موسس الجمعيةتعريف عن الدكتور موسس الجمعيةتعريف عن الدكتور موسس الجمعيةتعريف
+                                عن الدكتور موسس الجمعيةتعريف عن الدكتور موسس الجمعية
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="contact-us">
+                            <h2> تواصل معنا </h2>
+                            <ul>
+                                <li>
+                                    <i class="fa fa-phone"></i> 012852592655-012852592655
+                                </li>
+
+                                <li>
+                                    <i class="fa fa-envelope"></i> serv@gmail.com
+                                </li>
+                            </ul>
+                            <ul class="social">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-youtube"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                            <a href="#">
+                                <img src="~/Content/images/payment-card-logo-sm.png" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="contact-form contact-us">
+                            <h2> تواصل معنا </h2>
+                            <form>
+                                <label for="message"> اكتب رسالتك هنا </label>
+                                <textarea class="form-control" id="message" placeholder="اكتب رسالتك هنا"></textarea>
+                                <button class="btn btn-default pull-left btn-lg"> ارسال </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="bottom-footer">
+            <div class="container">
+                <p class="text-center"> تصميم Esraa Ghareb , حقوق الطبع والنشر &copy; , جميع الحقوق محفوظه </p>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/Scripts/jquery.js"></script>
+    <script src="~/Content/Scripts/bootstrap.js"></script>
+    <script src="~/Content/Scripts/head.js"></script>
+    <script src="~/Content/Scripts/bootstrap-select.min.js"></script>
+    <script src="~/Content/Scripts/animat.js"></script>
+    <script src="~/Content/Scripts/scrollspy.js"></script>
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>
