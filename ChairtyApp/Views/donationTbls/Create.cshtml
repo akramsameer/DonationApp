@@ -1,4 +1,157 @@
-﻿@model ChairtyApp.Models.donationTbl
+﻿
+<section id="slider-menu">
+    <div class="main-menu">
+        <div class="container">
+            <nav class="navbar navbar-default text-center">
+                <div class="container-fluid">
+
+                    <a class="text-white" href="@Url.Action("Index","Home")">
+                        <img src="~/Content/images/logoHome.png" style="padding-bottom:5px;">
+                        <h1 style="display:inline-block; font-family:he1;"> جمعيتى </h1>
+                    </a>
+                </div>
+
+
+                <!-- /.container-fluid -->
+            </nav>
+        </div>
+    </div>
+</section>
+
+
+<section id="log-signup" style="min-height:75vh !important;">
+
+    <div class="sec-overlay"></div>
+    <div class="container">
+        <div class="content">
+
+            <div class="col-md-8 col-md-offset-2">
+
+                <h3 class=" line-bottom">
+                    قدم تبرع
+                    <span class="font-weight-300"> الآن!</span>
+                </h3>
+
+                <!-- ===== START: Paypal Both Onetime/Recurring Form ===== -->
+                <form action="#">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group  ">
+                                <label style="font-size:20px !important;padding:0;">
+                                    <strong>طريقه الدفع</strong>
+                                </label>
+                                <br>
+                                <label class="radio-inline text-lightblue">
+                                    <input type="radio" checked="" value="one_time" name="payment_type"> مره واحده
+                                </label>
+                                <label class="radio-inline text-lightblue">
+                                    <input type="radio" value="recurring" name="payment_type"> دفع متكرر
+                                </label>
+                            </div>
+                            <a href="#">
+                                <img src="~/Content/images/payment-card-logo-sm.png" alt="">
+                                <br>
+                                <br>
+                            </a>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group ">
+                                        <label style="font-size:20px !important; padding:0;">
+                                            <strong>اريد التبرع الي </strong>
+                                        </label>
+                                        <select name="item_name" class="form-control">
+                                            <option value="Educate Children">تعليم الاطفال</option>
+                                            <option value="Child Camps">مخيمات الاطفال اللاجئين</option>
+                                            <option value="Clean Water for Life">المياه النظيفة من أجل الحياة</option>
+                                            <option value="Campaign for Child Poverty">حمله من أجل فقر الأطفال</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group ">
+                                        <label style="font-size:20px !important; padding:0;">
+                                            <strong>نوع التبرع </strong>
+                                        </label>
+                                        <select name="item_name" class="form-control" id="donate-type">
+                                            <option value="clothes">ملابس</option>
+                                            <option value="money"> مادي </option>
+                                            <option value="others">اشياء اخري</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group  ">
+                                <label style="font-size:20px !important;padding:0;">
+                                    <strong> تبرع بمساعده الأدمن </strong>
+                                </label>
+                                <br>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3418.6667154469064!2d31.356396714745983!3d31.035534081532663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f79c2b413dba47%3A0xec2dd2005c03489e!2sNasser+Pharmacy!5e0!3m2!1sen!2seg!4v1521361031191"
+                                        width="400" height="350" frameborder="0" style="border:0;border-radius:5px;" allowfullscreen></iframe>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+
+
+                        <div class="col-sm-12" id="money-donate-form">
+                            <div class="form-group ">
+                                <label>
+                                    <strong>كم المبلغ الذي تريد التبرع به ؟</strong>
+                                </label>
+                                <div class="radio ">
+
+                                    <label class="radio-inline text-lightblue">
+                                        <input type="radio" name="amount" value="200"> Eg 200
+                                    </label>
+                                    <label class="radio-inline text-lightblue">
+                                        <input type="radio" name="amount" value="500"> Eg 500
+                                    </label>
+
+                                    <label class="radio-inline text-lightblue">
+                                        <input type="radio" name="amount" value="1000"> Eg 1000
+                                    </label>
+                                    <label class="radio-inline text-lightblue">
+                                        <input type="radio" name="amount" value="2000"> Eg 2000
+                                    </label>
+
+                                    <label class="radio-inline text-lightblue">
+                                        <input type="radio" name="amount" value="500"> Eg 500
+                                    </label>
+                                    <label class="radio-inline text-lightblue">
+                                        <input type="radio" name="amount" value="other"> مبلغ اخري
+
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" data-loading-text="Please wait...">تبرع الآن</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+@*@model ChairtyApp.Models.donationTbl
 
 @{
     ViewBag.Title = "Create";
@@ -56,4 +209,4 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
