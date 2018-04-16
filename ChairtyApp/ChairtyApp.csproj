@@ -214,6 +214,7 @@
     <Compile Include="Models\vediosTbl.cs">
       <DependentUpon>CharityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\RequestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
