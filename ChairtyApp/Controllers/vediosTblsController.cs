@@ -8,9 +8,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ChairtyApp.Models;
+using ChairtyApp.Models.ViewModels;
 
 namespace ChairtyApp.Controllers
-{  
+{
     public class vediosTblsController : Controller
     {
         private chairtyDbEntities db = new chairtyDbEntities();
@@ -18,7 +19,13 @@ namespace ChairtyApp.Controllers
         // GET: vediosTbls
         public async Task<ActionResult> Index()
         {
-            return View(await db.vediosTbls.ToListAsync());
+            var lst = await db.vediosTbls.ToListAsync();
+            VedioViewModel vm = new VedioViewModel()
+            {
+                ListOfVedios = lst
+            };
+
+            return View(vm);
         }
 
         // GET: vediosTbls/Details/5
@@ -47,8 +54,9 @@ namespace ChairtyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "vedioId,vedioUrl")] vediosTbl vediosTbl)
+        public async Task<ActionResult> Create(VedioViewModel vedioViewModel)
         {
+            vediosTbl vediosTbl = vedioViewModel.Vedio;
             if (ModelState.IsValid)
             {
                 db.vediosTbls.Add(vediosTbl);
@@ -71,23 +79,25 @@ namespace ChairtyApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vediosTbl);
+            return PartialView("VedioEditModal", vediosTbl);
         }
 
         // POST: vediosTbls/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "vedioId,vedioUrl")] vediosTbl vediosTbl)
+        public async Task<ActionResult> Edit(int id, string vedioUrl)
         {
-            if (ModelState.IsValid)
+            var vedio = await db.vediosTbls.SingleOrDefaultAsync(x => x.vedioId == id);
+            if (vedio != null)
             {
-                db.Entry(vediosTbl).State = EntityState.Modified;
+                vedio.vedioUrl = vedioUrl;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Json(vedio);
+
             }
-            return View(vediosTbl);
+            
+            return View();
         }
 
         // GET: vediosTbls/Delete/5
@@ -107,7 +117,6 @@ namespace ChairtyApp.Controllers
 
         // POST: vediosTbls/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             vediosTbl vediosTbl = await db.vediosTbls.FindAsync(id);

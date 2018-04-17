@@ -215,6 +215,7 @@
       <DependentUpon>CharityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\RequestViewModel.cs" />
+    <Compile Include="Models\ViewModels\VedioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -3185,10 +3186,7 @@
     <Content Include="Views\Admin\Charts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\requestTbls\_Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\requestTbls\_Delete.cshtml" />
+    <Content Include="Views\vediosTbls\VedioEditModal.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

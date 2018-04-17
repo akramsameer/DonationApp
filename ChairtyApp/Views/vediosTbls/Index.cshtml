@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ChairtyApp.Models.vediosTbl>
+﻿@model ChairtyApp.Models.ViewModels.VedioViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -51,17 +51,21 @@
                                 <tr></tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td> daa el mafrod link </td>
-                                    <td>
-                                        <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#editModel">
-                                            <i class="fa fa-refresh"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#deleteModel">
-                                            <i class="fa fa-close"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @foreach (var vedio in Model.ListOfVedios)
+                                {
+                                    <tr>
+                                        <td><a href="@vedio.vedioUrl" id="@(vedio.vedioId)URL">@vedio.vedioUrl</a></td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary eleToBeClicked" id="@vedio.vedioId" data-toggle="modal" data-target="#editModel">
+                                                <i class="fa fa-refresh"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger eleToBeClicked" data-toggle="modal" id="@(vedio.vedioId)" data-target="#deleteModel">
+                                                <i class="fa fa-close"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+
                             </tbody>
                         </table>
                     </div>
@@ -73,6 +77,8 @@
     </div>
     <!-- .animated -->
 </div>
+@Html.BeginForm("Create", "vediosTbls", FormMethod.Post){
+@Html.AntiForgeryToken()
 
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -83,19 +89,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="form-group">
                     <label for="url-add" class=" form-control-label">Video URL</label>
-                    <input type="text" id="url-add" placeholder="Enter username for subadmin " class="form-control">
+                    @Html.EditorFor(model => model.Vedio.vedioUrl, new { htmlAttributes = new { @class = "form-control", id = "url-add" } })
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Confirm</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
+
         </div>
     </div>
 </div>
+}
 
 <div class="modal fade" id="editModel" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -109,16 +118,19 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="url-edit" class=" form-control-label">Video URL</label>
+
+
                     <input type="text" id="url-edit" placeholder="Enter username for subadmin " class="form-control">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-primary" , id="btnApproveEdit">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -129,12 +141,14 @@
                 </button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-primary" id="btnApproveDelete">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 @* ReSharper restore UnknownCssClass *@
 
@@ -164,3 +178,59 @@
     }
 
     </table>*@
+
+
+@section Scripts {
+    <script src="~/Content/Scripts/jquery.js"></script>
+    <script src="~/Content/Scripts/bootstrap.js"></script>
+    <script>
+        var TeamDetailPostBackURL = '/vediosTbls/';
+        var id;
+        $(function () {
+            var selected;
+            $(".eleToBeClicked").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('id');
+                var urlElemId = '#' + id + 'URL';
+                selected = {
+                    url: $(urlElemId).text(),
+                    id: id
+                };
+                $("#url-edit").val(selected.url);
+            });
+
+            $('#btnApproveEdit').click(function () {
+                var url = $("#url-edit").val();
+                $.ajax({
+                    type: "POST",
+                    url: TeamDetailPostBackURL + 'Edit/' + selected.id,
+                    data: { "vedioUrl": url },
+                    success: function (data) {
+
+                        $("#url-edit").val(data.vedioUrl);
+                        $('#editModel').modal('hide');
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $('#btnApproveDelete').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: TeamDetailPostBackURL + 'Delete/' + selected.id,
+                    success: function (data) {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

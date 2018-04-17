@@ -19,6 +19,7 @@ namespace ChairtyApp.Controllers
         public async Task<ActionResult> Index()
         {
             var requestTbls = db.requestTbls.Include(r => r.userTbl);
+            
             return View(await requestTbls.ToListAsync());
         }
 
