@@ -1,0 +1,23 @@
+﻿@model ChairtyApp.Models.vediosTbl
+<div class="modal-header">
+    <h5 class="modal-title" id="editModalLabel">Edit Video</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@Html.BeginForm("Edit", "vediosTbls")
+{
+<div class="modal-body">
+    <div class="form-group">
+
+        @* ReSharper disable once UnknownCssClass *@
+        <label for="url-edit" class=" form-control-label">Video URL</label>
+        @Html.EditorFor(model => model.vedioUrl, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter username for subadmin" } })
+        @*<input type="text" id="url-edit" placeholder="Enter username for subadmin " class="form-control">*@
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary">Confirm</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+</div>
+}
