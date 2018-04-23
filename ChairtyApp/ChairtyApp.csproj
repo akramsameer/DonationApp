@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -2606,7 +2607,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Images\" />
     <Folder Include="Content\assets\scss\.sass-cache\0c2f4e7e3ce607a0f7f238a71122520ed74aaa15\" />
     <Folder Include="Content\assets\scss\.sass-cache\1ea663541d8aa72314e8caea4edf18e46ea3ed2e\" />
     <Folder Include="Content\assets\scss\.sass-cache\590089d940a3045eb8c8b24b183c435305a7d5a9\" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -20,7 +21,52 @@ namespace ChairtyApp.Controllers
         {
             return View(await db.advertiseTbls.ToListAsync());
         }
+        [HttpPost]
+        public async Task<JsonResult> UploadFile(string id)
+        {
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    string fname = "success";
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
+                        HttpPostedFileBase file = files[i];
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/App_Data/Images/"), fname);
+                        file.SaveAs(fname); // id
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json(fname);
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
         // GET: advertiseTbls/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -47,7 +93,7 @@ namespace ChairtyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "adverId,advText,advImage")] advertiseTbl advertiseTbl)
+        public async Task<ActionResult> Create([Bind(Include = "advText")] advertiseTbl advertiseTbl)
         {
             if (ModelState.IsValid)
             {

@@ -86,12 +86,22 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="text-add" class=" form-control-label">النص</label>
+                    <label for="text-add" class="form-control-label">النص</label>
                     <input type="text" id="text-add" placeholder="Enter username for subadmin " class="form-control">
                 </div>
                 <div class="form-group">
+                    @*<div>
+                                @Html.EditorFor(Model => Model.Url)
+                                <input type="file" name="files" value="" multiple="multiple"/>
+                        </div>*@
+                    @*<div>
+                            Image
+                            <input type="file" name="file" id="file" />
+                            @Html.HiddenFor( model => model.ImageUrl)
+                            @Html.ValidationMessageFor( model => model.Url )
+                        </div>*@
                     <label for="image-add" class=" form-control-label">الصورة</label>
-                    <input type="file" id="image-add" size="60" />
+                    <input type="file" class="form-control-file" id="image-add" size="60" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -119,7 +129,7 @@
                     </div>
                     <div class="form-group">
                         <label for="image-add" class=" form-control-label">الصورة</label>
-                        <input type="file" id="image-add" size="60" />
+                        <input type="file" class="form-control-file" id="image-add" size="60" />
                     </div>
                 </div>
             </div>

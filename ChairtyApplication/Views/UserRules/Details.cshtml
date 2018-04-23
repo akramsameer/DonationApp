@@ -1,0 +1,27 @@
+﻿@model ChairtyApplication.Models.UserRule
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout Admin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserRule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RuleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RuleName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

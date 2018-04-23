@@ -50,18 +50,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach (var adv in Model)
+                            {
                                 <tr>
-                                    <td> daa el mafrod text 3ady </td>
-                                    <td> daa el mafrod link image or its name </td>
+                                    <td> @adv.advText </td>
                                     <td>
-                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModel">
+                                        <img src="@Url.Content(adv.advImage)" alt="Image"/>
+                                    </td>
+                                    <td>
+                                        <button type="button" id="@(adv.adverId)" class="eleToBeClicked btn btn-secondary" data-toggle="modal" data-target="#editModel">
                                             <i class="fa fa-refresh"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">
+                                        <button type="button" id="@(adv.adverId)" class="eleToBeClicked btn btn-danger" data-toggle="modal" data-target="#deleteModel">
                                             <i class="fa fa-close"></i>
                                         </button>
                                     </td>
                                 </tr>
+                            }
                             </tbody>
                         </table>
                     </div>
@@ -73,6 +78,8 @@
     </div>
     <!-- .animated -->
 </div>
+
+@*Add*@
 
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -88,18 +95,21 @@
                     <label for="text-add" class=" form-control-label">النص</label>
                     <input type="text" id="text-add" placeholder="Enter username for subadmin " class="form-control">
                 </div>
+
                 <div class="form-group">
-                    <label for="image-add" class=" form-control-label">الصورة</label>
-                    <input type="file" id="image-add" size="60" />
+                    <input type="file" name="UploadFile" id="txtUploadFile" class="makethispretty" />
+                    <input type="text" id="imagePath" hidden="hidden" />
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Confirm</button>
+                <button type="submit" id="btnApproveAdd" class="btn btn-primary">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
+
+@*Edit*@
 
 <div class="modal fade" id="editModel" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -118,8 +128,9 @@
                     </div>
                     <div class="form-group">
                         <label for="image-add" class=" form-control-label">الصورة</label>
-                        <input type="file" id="image-add" size="60" />
+                        <input type="file" class="form-control-file" id="image-add" size="60" />
                     </div>
+                    <input type="text" id="imagePath" hidden="hidden" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -129,6 +140,7 @@
         </div>
     </div>
 </div>
+@*Delete*@
 <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -145,6 +157,118 @@
         </div>
     </div>
 </div>
+
+@section scripts
+{
+
+    <script src="~/Content/Scripts/jquery.js"></script>
+    <script src="~/Content/Scripts/bootstrap.js"></script>
+    <script>
+        var TeamDetailPostBackURL = '/advertiseTbls/';
+        var id;
+        $(function () {
+            var selected;
+            $(".eleToBeClicked").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('id');
+                var urlElemId = '#' + id;
+                selected = {
+                    url: $(urlElemId).text(),
+                    id: id
+                };
+                $("#url-edit").val(selected.url);
+            });
+
+            $('#btnApproveAdd').click(function () {
+                var url = $("#text-add").val();
+                $.ajax({
+                    type: "POST",
+                    url: TeamDetailPostBackURL + 'Create',
+                    data: { "advText": url },
+                    success: function (data) {
+                        $("#url-edit").val(data.vedioUrl);
+                        $('#editModel').modal('hide');
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+
+            $('#btnApproveEdit').click(function () {
+                var url = $("#url-edit").val();
+                $.ajax({
+                    type: "POST",
+                    url: TeamDetailPostBackURL + 'Edit/' + selected.id,
+                    data: { "vedioUrl": url },
+                    success: function (data) {
+
+                        $("#url-edit").val(data.vedioUrl);
+                        $('#editModel').modal('hide');
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $('#btnApproveDelete').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: TeamDetailPostBackURL + 'Delete/' + selected.id,
+                    success: function (data) {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+    <script>
+
+        $('#txtUploadFile').on('change', function (e) {
+            var files = e.target.files;
+            var myID = 3; //uncomment this to make sure the ajax URL works
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/advertiseTbls/UploadFile?id=' + myID,
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            console.log(result);
+                            $("#imagePath").val(result);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+    </script>
+
+}
 
 @*<h2>Index</h2>
 

@@ -1,0 +1,43 @@
+﻿@model ChairtyApplication.Models.Requist
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout Admin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Requist</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireMoney)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequireMoney)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailsProblem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetailsProblem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

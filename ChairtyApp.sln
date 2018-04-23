@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChairtyApp", "ChairtyApp\ChairtyApp.csproj", "{F6587C06-D1C3-4C88-B7BD-00ADF8E961F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChairtyApplication", "ChairtyApplication\ChairtyApplication.csproj", "{387EF9F9-17CD-4BE4-97BA-98FDD5071F73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +17,15 @@ Global
 		{F6587C06-D1C3-4C88-B7BD-00ADF8E961F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6587C06-D1C3-4C88-B7BD-00ADF8E961F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6587C06-D1C3-4C88-B7BD-00ADF8E961F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{387EF9F9-17CD-4BE4-97BA-98FDD5071F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{387EF9F9-17CD-4BE4-97BA-98FDD5071F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{387EF9F9-17CD-4BE4-97BA-98FDD5071F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{387EF9F9-17CD-4BE4-97BA-98FDD5071F73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B6D161F-C277-4D11-8F66-B1CF57674222}
 	EndGlobalSection
 EndGlobal
