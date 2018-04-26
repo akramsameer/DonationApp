@@ -1,0 +1,67 @@
+﻿@media screen and (max-width: 991px) {
+    header .top-menu .social{
+        margin-bottom: 20px;
+    }
+    #slider-menu .slider .carousel-inner {
+        height: 740px;
+    }
+
+    #slider-menu .slider .carousel-inner .item {
+        height: 740px;
+    }
+
+    #slider-menu .slider .carousel-inner .item img {
+        width: 100%;
+        height: 740px;
+    }
+
+    #slider-menu .slider .carousel-inner .item .carousel-caption .kids{
+        width: 100%;
+
+    }
+
+
+    #slider-menu .slider .carousel-inner .item .carousel-caption .aid{
+        width: 100%;
+    }
+
+    #news .carousel-inner .item .news .poster-details ,
+    #images .carousel-inner .item .news .poster-details{
+        text-align: center;
+    }
+
+    #news .carousel-control.right.carousel-control.right{
+        right: 75%;
+    }
+    #images .carousel-control.right{
+        right: 75%;
+    }
+
+    footer .contact-us > h2, footer .footer-bg .about > h2{
+        text-align: center;
+    }
+
+    footer .footer-bg .about p.about-text{
+        text-align: center;
+    }
+
+    footer .footer-bg .about p.doc{
+        text-align: center;
+    }
+
+    footer .contact-us > ul li{
+        text-align: center;
+    }
+
+    footer .contact-us ul.social{
+        text-align: center;
+    }
+
+    footer{
+        margin-top: 100px;
+    }
+}
+
+@media screen and (max-width: 604px) {
+
+}
