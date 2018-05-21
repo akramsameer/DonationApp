@@ -1,46 +1,173 @@
-﻿@model IEnumerable<ChairtyApplication.Models.Donation>
+﻿@model IEnumerable<ChairtyApplication.Models.ViewModels.DonationViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout Admin.cshtml";
 }
 
-<h2>Index</h2>
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IsCredit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Password)
-        </th>
-        <th></th>
-    </tr>
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#">Reports</a>
+                    </li>
+                    <li class="active">Status Reports</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsCredit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Password)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Data Table</strong>
+                        <span class="float-right">
+                            <button type="button" class="btn btn-success"><i class="fa fa-print"></i> Print</button>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered text-center">
+
+                            <thead>
+                                <tr>
+
+                                    <th>الاسم</th>
+                                    <th>الرقم القومي</th>
+                                    <th>فصيله الدم</th>
+                                    <th>المبلغ</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.DonatorName
+                                        </td>
+                                        <td>
+                                            @item.DonatorNationalId
+                                        </td>
+                                        @*TODO : ADD National Id*@
+                                        <td>
+                                            @item.DonatorBloodType
+                                        </td>
+                                        @*TODO: ADD Blood category*@
+                                        <td>
+                                            @item.DonationMoney
+                                        </td>
+                                        <td>
+
+                                            @* @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | *@
+                                            @* @Html.ActionLink("Details", "Details", new { id = item.Id }) | *@
+                                            @* @Html.ActionLink("Delete", "Delete", new { id = item.Id }) *@
+
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#acceptModel">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">
+                                                <i class="fa fa-close"></i>
+                                            </button>
+                                            @*@Html.ActionLink("", "Delete", new {id = request.requestId}, new { htmlAttributes = new { @class = "btn btn-danger" , @style = "color:red" } })*@
+                                            @*<button type="button" class="btn btn-danger"><i class="fa fa-close"></i> Remove</button>*@
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- .animated -->
+</div>
+<!-- .content -->
+
+@section scripts{
+
+    <script src="~/Content/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="~/Content/assets/js/lib/data-table/datatables-init.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#bootstrap-data-table-export').DataTable();
+        });
+    </script>
 }
-
-</table>
+@* *@
+@*     @{ *@
+@*         ViewBag.Title = "Index"; *@
+@*         Layout = "~/Views/Shared/_Layout Admin.cshtml"; *@
+@*     } *@
+@* *@
+@*     <h2>Index</h2> *@
+@* *@
+@*     <p> *@
+@*         @Html.ActionLink("Create New", "Create") *@
+@*     </p> *@
+@*     <table class="table"> *@
+@*         <tr> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.IsCredit) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Cost) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.User.Password) *@
+@*             </th> *@
+@*             <th></th> *@
+@*         </tr> *@
+@* *@
+@*         @foreach (var item in Model) *@
+@*         { *@
+@*             <tr> *@
+@*                 <td> *@
+@*                     @Html.DisplayFor(modelItem => item.IsCredit) *@
+@*                 </td> *@
+@*                 <td> *@
+@*                     @Html.DisplayFor(modelItem => item.Cost) *@
+@*                 </td> *@
+@*                 <td> *@
+@*                     @Html.DisplayFor(modelItem => item.User.Password) *@
+@*                 </td> *@
+@*                 <td> *@
+@*                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | *@
+@*                     @Html.ActionLink("Details", "Details", new { id = item.Id }) | *@
+@*                     @Html.ActionLink("Delete", "Delete", new { id = item.Id }) *@
+@*                 </td> *@
+@*             </tr> *@
+@*         } *@
+@*     </table> *@

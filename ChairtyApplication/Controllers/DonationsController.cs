@@ -1,8 +1,13 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ChairtyApplication.Models;
+using ChairtyApplication.Models.ViewModels;
+using ChairtyApplication.Models.ViewModels.Admin;
+using WebGrease.Css.Extensions;
 
 namespace ChairtyApplication.Controllers
 {
@@ -13,8 +18,26 @@ namespace ChairtyApplication.Controllers
         // GET: Donations
         public ActionResult Index()
         {
-            var donations = db.Donations.Include(d => d.User);
-            return View(donations.ToList());
+            var ret = new List<DonationViewModel>();
+//            ret.Add(new DonationViewModel()
+//            {
+//                DonationMoney = 20,
+//                DonatorNationalId = "054848486",
+//                DonatorBloodType = "A+",
+//                DonatorName = "fddddddddddd"
+//            });
+            db.Requists.Include(r => r.User).ForEach(x =>
+            {
+                Debug.Assert(x.RequireMoney != null, "x.RequireMoney != null");
+                ret.Add(new DonationViewModel()
+                {
+                    DonatorName = x.User.UserName,
+                    DonatorBloodType = x.User.BloodCategory,
+                    DonatorNationalId = x.User.IdentificationNumber,
+                    DonationMoney = (double)x.RequireMoney
+                });
+            });
+            return View(ret);
         }
 
         // GET: Donations/Details/5
