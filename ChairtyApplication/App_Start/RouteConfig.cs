@@ -14,6 +14,12 @@ namespace ChairtyApplication
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                "Image", "images/{filename}",
+                new { controller = "Images", action = "Index", filename = "" }
+            );
+
         }
     }
 }

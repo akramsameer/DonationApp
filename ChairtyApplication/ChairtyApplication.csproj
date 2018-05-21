@@ -51,6 +51,12 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Simple.ImageResizer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simple.ImageResizer.2.0.0\lib\Simple.ImageResizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Simple.ImageResizer.MvcExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simple.ImageResizer.MvcExtensions.1.0.0\lib\net45\Simple.ImageResizer.MvcExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -200,6 +206,7 @@
     <Compile Include="Controllers\CreditsController.cs" />
     <Compile Include="Controllers\DonationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
@@ -1740,6 +1747,7 @@
     <Folder Include="Content\assets\scss\.sass-cache\6e69d195df721b3a89b57cbd4813c065acff1449\" />
     <Folder Include="Content\assets\scss\.sass-cache\c64c3075ab570bf2e2c270d1fb05ff7e3db68931\" />
     <Folder Include="Content\assets\scss\.sass-cache\d192277f41c6848ff7411af310ee7b2a42ab6d76\" />
+    <Folder Include="Views\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
