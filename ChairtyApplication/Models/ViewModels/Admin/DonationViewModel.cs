@@ -1,4 +1,4 @@
-﻿namespace ChairtyApplication.Models.ViewModels
+﻿namespace ChairtyApplication.Models.ViewModels.Admin
 {
     public class DonationViewModel
     {
