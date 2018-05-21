@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ChairtyApplication.Models;
+using HomeCinema.Service;
+using HomeCinema.Service.Abstract;
 
 namespace ChairtyApplication.Controllers
 {
@@ -35,7 +37,9 @@ namespace ChairtyApplication.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            var cont = db.Advertises.Add(new Advertise() {Image = "dd", Text = "Dddd"});
             ViewBag.CreditId = new SelectList(db.Credits, "Id", "TypeName");
+            
             ViewBag.RuleId = new SelectList(db.UserRules, "Id", "RuleName");
             return View();
         }
@@ -49,6 +53,9 @@ namespace ChairtyApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                var encrypt = new EncryptionService();
+                var salt = encrypt.CreateSalt();
+
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
