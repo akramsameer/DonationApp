@@ -1,8 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ChairtyApplication.Models;
+using ChairtyApplication.Models.ViewModels.Admin;
 
 namespace ChairtyApplication.Controllers
 {
@@ -42,16 +44,21 @@ namespace ChairtyApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Text,Image")] Advertise advertise)
+        public ActionResult Create(AdvertiseVm adv)
         {
             if (ModelState.IsValid)
             {
+                var advertise = new Advertise()
+                {
+                    Image = adv.Image,
+                    Text = adv.Text
+                };
                 db.Advertises.Add(advertise);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(advertise);
+            return View(adv);
         }
 
         // GET: Advertises/Edit/5
@@ -66,7 +73,13 @@ namespace ChairtyApplication.Controllers
             {
                 return HttpNotFound();
             }
-            return View(advertise);
+            var vm = new AdvertiseVm()
+            {
+                Image = advertise.Image,
+                Id = advertise.Id,
+                Text = advertise.Text
+            };
+            return View(vm);
         }
 
         // POST: Advertises/Edit/5
@@ -74,15 +87,21 @@ namespace ChairtyApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Text,Image")] Advertise advertise)
+        public ActionResult Edit(AdvertiseVm adv)
         {
             if (ModelState.IsValid)
             {
+                var advertise = new Advertise()
+                {
+                    Image = adv.Image,
+                    Text = adv.Text,
+                    Id = adv.Id
+                };
                 db.Entry(advertise).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(advertise);
+            return View(adv);
         }
 
         // GET: Advertises/Delete/5

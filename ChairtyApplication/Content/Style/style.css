@@ -686,3 +686,21 @@ footer .contact-form form button{
 
 
 
+
+.img-sm {
+    width: 32px;
+    height: 32px;
+}
+.img-md {
+    width: 64px;
+    height: 64px;
+}
+.img-lg {
+    width: 96px;
+    height: 96px;
+}
+
+.img-tsm {
+    width: 10px;
+    height: 10px;
+}
