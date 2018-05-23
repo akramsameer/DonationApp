@@ -34,12 +34,21 @@ namespace ChairtyApplication.Controllers
             return View(user);
         }
 
+
+        // GET: Users/Create
+        public ActionResult CreateSubAdmin()
+        {
+            ViewBag.CreditId = new SelectList(db.Credits, "Id", "TypeName");
+
+            ViewBag.RuleId = new SelectList(db.UserRules, "Id", "RuleName");
+            return View(new User());
+        }
+
         // GET: Users/Create
         public ActionResult Create()
         {
-            var cont = db.Advertises.Add(new Advertise() {Image = "dd", Text = "Dddd"});
             ViewBag.CreditId = new SelectList(db.Credits, "Id", "TypeName");
-            
+
             ViewBag.RuleId = new SelectList(db.UserRules, "Id", "RuleName");
             return View();
         }
@@ -51,10 +60,16 @@ namespace ChairtyApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Password,Email,UserName,Magnitude,Landitude,CreditNumber,CreditId,RuleId,IdentificationNumber,BloodCategory")] User user)
         {
+            var encrypt = new EncryptionService();
+
             if (ModelState.IsValid)
             {
-                var encrypt = new EncryptionService();
-                var salt = encrypt.CreateSalt();
+                var pass = encrypt.EncryptPassword(user.Password, "WQFNNm43TNyxIxBWxnWlzg==");
+                user.Password = pass;
+                if (user.RuleId == null)
+                {
+                    user.RuleId = 3;    // normal user
+                }
 
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -65,6 +80,35 @@ namespace ChairtyApplication.Controllers
             ViewBag.RuleId = new SelectList(db.UserRules, "Id", "RuleName", user.RuleId);
             return View(user);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Include = "Password,Email")] User user)
+        {
+            var encrypt = new EncryptionService();
+
+
+            var pass = encrypt.EncryptPassword(user.Password, "WQFNNm43TNyxIxBWxnWlzg==");
+            user.Password = pass;
+
+
+            User valid = db.Users.SingleOrDefault(x => x.Password == pass && x.Email == user.Email);
+            if (valid == null)
+            {
+                ViewBag.CreditId = new SelectList(db.Credits, "Id", "TypeName", user.CreditId);
+                ViewBag.RuleId = new SelectList(db.UserRules, "Id", "RuleName", user.RuleId);
+                return View(user);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
 
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
@@ -135,5 +179,7 @@ namespace ChairtyApplication.Controllers
             }
             base.Dispose(disposing);
         }
+
+       
     }
 }

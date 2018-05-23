@@ -1,0 +1,72 @@
+﻿@model ChairtyApplication.Models.User
+
+@{
+    ViewBag.Title = "Create SubAdmin";
+    Layout = "~/Views/Shared/_Layout Admin.cshtml";
+    
+}
+
+@using (Html.BeginForm("Create", "Users"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Landitude);
+    @Html.HiddenFor(x => x.Magnitude);
+    @Html.HiddenFor(x => x.RuleId);
+    <h2> Create Sub-Admin</h2>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>الاسم</label>
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group col-md-6">
+            <label>عنوان البريد الالكتروني</label>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="form_choose_password">اختر كلمه المرور</label>
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group col-md-6">
+            <label>أعاده إدخال كلمه المرور</label>
+            <input id="form_re_enter_password" name="form_re_enter_password" class="form-control" type="text">
+        </div>
+    </div>
+    
+<div class="row">
+        <div class="form-group col-md-6">
+            <label for="form_choose_password">الرقم القومى</label>
+            @Html.EditorFor(model => model.IdentificationNumber, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group col-md-6">
+            <label>نوع فصيلة الدم</label>
+
+            @Html.EditorFor(model => model.BloodCategory, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+   
+<div class="row">
+        <div class="form-group col-md-6">
+            <label for="form_choose_password">رقم بطاقة الإئتمان</label>
+            @Html.EditorFor(model => model.CreditNumber, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group col-md-6">
+            <label>نوع فصيلة الدم</label>
+            @Html.DropDownList("creditId", (SelectList)ViewBag.CreditId, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+    <div id="map_canvas" class="row" height="300"></div>
+    <div class="form-group">
+        <button class="btn btn-default" type="submit">سجل الآن </button>
+    </div>
+}
+
+<script src="~/Content/Scripts/jquery.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#RuleId").val(2);
+    });
+</script>
