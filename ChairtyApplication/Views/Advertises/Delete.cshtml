@@ -1,41 +1,60 @@
 ﻿@model ChairtyApplication.Models.Advertise
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout Admin.cshtml";
 }
 
-<h2>Delete</h2>
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Advertise</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">هل أنت متأكد من الحذف</strong>
+                        <span class="float-right">
+                            <a href="@Url.Action("Index")">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+                                    <i class="fa fa-backward"></i> Back
+                                </button>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-horizontal">
+                            <h4>Advertise</h4>
+                            <hr />
+                            <div class="form-group">
+                                <label for="text-add" class="control-label col-md-2">النص</label>
+                                @*@Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                <div class="col-md-10">
+                                    @Html.DisplayFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+                            <div class="form-group">
+                                <a href="@Url.Content(Model.Image)" class="col-md-2 col-md-offset-5" id="loadedImageRef" data-gallery="">
+                                    <img id="loadedImage" src="@Url.Content(Model.Image)" class="img-lg m-3">
+                                </a>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-actions no-color">
+                                            <input type="submit" value="Delete" class="btn btn-danger" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
+
+
+    </div>
 </div>

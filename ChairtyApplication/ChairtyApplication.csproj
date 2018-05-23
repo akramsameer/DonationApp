@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.4.2.5\lib\net45\ImageResizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -214,6 +217,7 @@
     <Compile Include="Controllers\UserRulesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
+    <Compile Include="Models\ViewModels\Admin\AdvertiseVm.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -292,6 +296,8 @@
   <ItemGroup>
     <Content Include="App_Data\Data1.0.0.sql" />
     <Content Include="Content\assets\css\animate.css" />
+    <Content Include="Content\assets\css\blueimp-gallery.min.css" />
+    <Content Include="Content\assets\css\bootstrap-imageupload.css" />
     <Content Include="Content\assets\css\bootstrap-rtl.css" />
     <Content Include="Content\assets\css\bootstrap-rtl.min.css" />
     <Content Include="Content\assets\css\bootstrap-select.css" />
@@ -321,9 +327,11 @@
     <Content Include="Content\assets\fonts\icomoon\index.html" />
     <Content Include="Content\assets\fonts\index.html" />
     <Content Include="Content\assets\fonts\themify.svg" />
+    <Content Include="Content\assets\js\bootstrap-imageupload.js" />
     <Content Include="Content\assets\js\chartjs.min.js" />
     <Content Include="Content\assets\js\dashboard.js" />
     <Content Include="Content\assets\js\index.html" />
+    <Content Include="Content\assets\js\jquery.blueimp-gallery.min.js" />
     <Content Include="Content\assets\js\less.min.js" />
     <Content Include="Content\assets\js\lib\chart-js\Chart.bundle.js" />
     <Content Include="Content\assets\js\lib\chart-js\chartjs-init.js" />

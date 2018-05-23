@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ImageResizer;
 using Simple.ImageResizer.MvcExtensions;
 using Simple.ImageResizer;
 
@@ -15,23 +18,55 @@ namespace ChairtyApplication.Controllers
             return new ImageResult(filepath, w, h);
         }
 
-        public ActionResult Upload(HttpPostedFileBase file)
+        [HttpPost]
+        public JsonResult UploadFile()
         {
-            byte[] data;
-            using (Stream inputStream = file.InputStream)
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
             {
-                MemoryStream memoryStream = inputStream as MemoryStream;
-                if (memoryStream == null)
+                try
                 {
-                    memoryStream = new MemoryStream();
-                    inputStream.CopyTo(memoryStream);
+                    string fname = "success";
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+                        var item = new ImageJob(file, $"~/uploads/{fname}", new ResizeSettings()
+                        {
+                            MaxWidth = 400
+                        });
+                        item.CreateParentDirectory = true;
+                        item.Build();
+                        fname = $"~/uploads/{fname}";
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json(fname);
                 }
-                data = memoryStream.ToArray();
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
             }
-            var imageResizer = new ImageResizer(data);
-            imageResizer.Resize(800, ImageEncoding.Jpg100);
-            imageResizer.SaveToFile(Path.Combine(Server.MapPath("~/upload"), file.FileName));
-            return View();
+            else
+            {
+                return Json("No files selected.");
+            }
         }
     }
 

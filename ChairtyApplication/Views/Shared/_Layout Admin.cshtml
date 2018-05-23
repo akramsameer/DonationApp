@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
     @* ReSharper restore Html.PathError *@
-
+    <link href="~/Content/assets/css/blueimp-gallery.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/assets/css/normalize.css">
     <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
@@ -39,6 +39,29 @@
 
 
         @Scripts.Render("~/bundles/modernizr")*@
+
+    <style type="text/css">
+
+        .img-sm {
+            width: 32px;
+            height: 32px;
+        }
+
+        .img-md {
+            width: 64px;
+            height: 64px;
+        }
+
+        .img-lg {
+            width: 96px;
+            height: 96px;
+        }
+
+        .img-tsm {
+            width: 10px;
+            height: 10px;
+        }
+    </style>
 
 
 </head>
@@ -73,8 +96,8 @@
                             <li><i class="menu-icon fa fa-table"></i><a href="@Url.Action("index","Advertises")">Advertise Reports</a></li>
                         </ul>
                     </li>
-                    
-                    
+
+
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Month Reports</a>
                         <ul class="sub-menu children dropdown-menu">
@@ -87,8 +110,8 @@
                     <!-- /.menu-title -->
                     <li class="menu-item-has-children">
                         @*<a href="@Url.Action("Index","SubAdmin")">
-                            <i class="menu-icon fa fa-user"></i> Sub Admin
-                        </a>*@
+                                <i class="menu-icon fa fa-user"></i> Sub Admin
+                            </a>*@
                     </li>
                     <h3 class="menu-title">Data</h3><!-- /.menu-title -->
                     <li>
@@ -236,7 +259,16 @@
 
         @RenderBody()
 
-
+        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+        <div id="blueimp-gallery" class="blueimp-gallery">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close">×</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+        </div>
     </div>
 
     <!-- /#right-panel -->
@@ -275,7 +307,33 @@
                 normalizeFunction: 'polynomial'
             });
         })(jQuery);
+
+        function handleFiles(files) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /image.*/;
+
+                if (!file.type.match(imageType)) {
+                    continue;
+                }
+
+                var img = document.getElementById("loadedImage");
+                var link = document.getElementById("loadedImageRef");
+                img.classList.add("obj");
+                img.file = file;
+
+                var reader = new FileReader();
+                reader.onload = (function (aImg) {
+                    return function (e) {
+                        aImg.src = e.target.result;
+                        link.setAttribute('href', e.target.result);
+                    };
+                })(img);
+                reader.readAsDataURL(file);
+            }
+        }
     </script>
+    <script src="~/Content/assets/js/jquery.blueimp-gallery.min.js"></script>
 
 
     @*@Scripts.Render("~/bundles/jquery")

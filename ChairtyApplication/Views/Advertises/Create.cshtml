@@ -1,4 +1,4 @@
-﻿@model ChairtyApplication.Models.Advertise
+﻿@model ChairtyApplication.Models.ViewModels.Admin.AdvertiseVm
 
 @{
     ViewBag.Title = "Create";
@@ -19,7 +19,8 @@
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
                                     <i class="fa fa-backward"></i> Back
                                 </button>
-                            </a> </span>
+                            </a>
+                        </span>
                     </div>
                     <div class="card-body">
                         @using (Html.BeginForm())
@@ -31,7 +32,7 @@
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
-                                    <label for="text-add" class="control-label col-md-2">النص</label>
+                                    <label for="text-add" class="control-label col-md-2 pull-right">النص</label>
                                     @*@Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })*@
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
@@ -40,18 +41,26 @@
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <input type="file" name="UploadFile" id="txtUploadFile" class="makethispretty" />
+                                    <input onchange="handleFiles(this.files)" type="file" name="UploadFile" id="txtUploadFile" class="m-5 col-md-offset-8 col-md-4" />
+                                    <a href="" id="loadedImageRef" class="col-md-offset-2 col-md-4" data-gallery="" >
+                                        <img id="loadedImage" class="img-lg m-3">
+                                    </a>
                                     @Html.EditorFor(model => model.Image,
-                                        new { htmlAttributes = new { @class = "form-control" ,
-                                            hidden = "hidden"
-                                        } })
+                                        new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                hidden = "hidden",
+                                                id = "imagePath"
+                                            }
+                                        })
                                     @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                                     @*<input type="text" id="imagePath" hidden="hidden" />*@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Create" class="btn btn-default" />
+                                        <input type="submit" value="Save" class="btn btn-success" />
                                     </div>
                                 </div>
                             </div>
@@ -64,6 +73,48 @@
 
     </div>
 </div>
+
+@section scripts
+{
+
+    <script src="~/Content/Scripts/jquery.js"></script>
+    <script src="~/Content/Scripts/bootstrap.js"></script>
+    <script>
+
+        $('#txtUploadFile').on('change', function (e) {
+            var files = e.target.files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/Images/UploadFile',
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            console.log(result);
+                            $("#imagePath").val(result);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+    </script>
+
+}
 
 <!-- .animated -->
 @*</div>*@
