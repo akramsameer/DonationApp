@@ -39,9 +39,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsCredit" Type="bit" Nullable="false" />
           <Property Name="Cost" Type="money" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -66,7 +65,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequireMoney" Type="money" />
           <Property Name="DetailsProblem" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -82,7 +81,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -108,18 +107,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Donation_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Donation" Type="Self.Donation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Donation">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Permission_Rule">
           <End Role="UserRules" Type="Self.UserRules" Multiplicity="1" />
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
@@ -129,18 +116,6 @@
             </Principal>
             <Dependent Role="Permission">
               <PropertyRef Name="RuleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Requist_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Requist" Type="Self.Requist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Requist">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -181,17 +156,9 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRules" EntityType="Self.UserRules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Video" EntityType="Self.Video" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Donation_User" Association="Self.FK_Donation_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Donation" EntitySet="Donation" />
-          </AssociationSet>
           <AssociationSet Name="FK_Permission_Rule" Association="Self.FK_Permission_Rule">
             <End Role="UserRules" EntitySet="UserRules" />
             <End Role="Permission" EntitySet="Permission" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Requist_User" Association="Self.FK_Requist_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Requist" EntitySet="Requist" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Credit" Association="Self.FK_User_Credit">
             <End Role="Credit" EntitySet="Credit" />
@@ -206,38 +173,76 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChairtyDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ChairtyDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AboutUs" EntityType="ChairtyDbModel.AboutU" />
+          <EntitySet Name="Advertises" EntityType="ChairtyDbModel.Advertise" />
+          <EntitySet Name="ContactUs" EntityType="ChairtyDbModel.ContactU" />
+          <EntitySet Name="Credits" EntityType="ChairtyDbModel.Credit" />
+          <EntitySet Name="Donations" EntityType="ChairtyDbModel.Donation" />
+          <EntitySet Name="News" EntityType="ChairtyDbModel.News" />
+          <EntitySet Name="Permissions" EntityType="ChairtyDbModel.Permission" />
+          <EntitySet Name="Requists" EntityType="ChairtyDbModel.Requist" />
+          <EntitySet Name="sysdiagrams" EntityType="ChairtyDbModel.sysdiagram" />
+          <EntitySet Name="Users" EntityType="ChairtyDbModel.User" />
+          <EntitySet Name="UserRules" EntityType="ChairtyDbModel.UserRule" />
+          <EntitySet Name="Videos" EntityType="ChairtyDbModel.Video" />
+          <AssociationSet Name="FK_User_Credit" Association="ChairtyDbModel.FK_User_Credit">
+            <End Role="Credit" EntitySet="Credits" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Rule" Association="ChairtyDbModel.FK_Permission_Rule">
+            <End Role="UserRule" EntitySet="UserRules" />
+            <End Role="Permission" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Rule" Association="ChairtyDbModel.FK_User_Rule">
+            <End Role="UserRule" EntitySet="UserRules" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AboutU">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Advertise">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ContactU">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Credit">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_User_Credit" FromRole="Credit" ToRole="User" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ChairtyDbModel.FK_User_Credit" FromRole="Credit" ToRole="User" />
         </EntityType>
         <EntityType Name="Donation">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsCredit" Type="Boolean" Nullable="false" />
-          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Donation_User" FromRole="Donation" ToRole="User" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="News">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Permission">
@@ -245,9 +250,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RuleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserRule" Relationship="Self.FK_Permission_Rule" FromRole="Permission" ToRole="UserRules" />
+          <NavigationProperty Name="UserRule" Relationship="ChairtyDbModel.FK_Permission_Rule" FromRole="Permission" ToRole="UserRule" />
         </EntityType>
         <EntityType Name="Requist">
           <Key>
@@ -255,15 +260,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RequireMoney" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DetailsProblem" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Requist_User" FromRole="Requist" ToRole="User" />
+          <Property Name="DetailsProblem" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -273,41 +277,39 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Magnitude" Type="Single" />
           <Property Name="Landitude" Type="Single" />
-          <Property Name="CreditNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreditNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreditId" Type="Int32" Nullable="false" />
           <Property Name="RuleId" Type="Int32" />
-          <Property Name="IdentificationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdentificationNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BloodCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Credit" Relationship="Self.FK_User_Credit" FromRole="User" ToRole="Credit" />
-          <NavigationProperty Name="Donations" Relationship="Self.FK_Donation_User" FromRole="User" ToRole="Donation" />
-          <NavigationProperty Name="Requists" Relationship="Self.FK_Requist_User" FromRole="User" ToRole="Requist" />
-          <NavigationProperty Name="UserRule" Relationship="Self.FK_User_Rule" FromRole="User" ToRole="UserRules" />
+          <NavigationProperty Name="Credit" Relationship="ChairtyDbModel.FK_User_Credit" FromRole="User" ToRole="Credit" />
+          <NavigationProperty Name="UserRule" Relationship="ChairtyDbModel.FK_User_Rule" FromRole="User" ToRole="UserRule" />
         </EntityType>
         <EntityType Name="UserRule">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RuleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Permissions" Relationship="Self.FK_Permission_Rule" FromRole="UserRules" ToRole="Permission" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_User_Rule" FromRole="UserRules" ToRole="User" />
+          <Property Name="RuleName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Permissions" Relationship="ChairtyDbModel.FK_Permission_Rule" FromRole="UserRule" ToRole="Permission" />
+          <NavigationProperty Name="Users" Relationship="ChairtyDbModel.FK_User_Rule" FromRole="UserRule" ToRole="User" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_User_Credit">
-          <End Role="Credit" Type="Self.Credit" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="ChairtyDbModel.Credit" Role="Credit" Multiplicity="1" />
+          <End Type="ChairtyDbModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Credit">
               <PropertyRef Name="Id" />
@@ -317,23 +319,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Donation_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Donation" Type="Self.Donation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Donation">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Permission_Rule">
-          <End Role="UserRules" Type="Self.UserRule" Multiplicity="1" />
-          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <End Type="ChairtyDbModel.UserRule" Role="UserRule" Multiplicity="1" />
+          <End Type="ChairtyDbModel.Permission" Role="Permission" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserRules">
+            <Principal Role="UserRule">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Permission">
@@ -341,23 +331,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Requist_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Requist" Type="Self.Requist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Requist">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User_Rule">
-          <End Role="UserRules" Type="Self.UserRule" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="ChairtyDbModel.UserRule" Role="UserRule" Multiplicity="0..1" />
+          <End Type="ChairtyDbModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserRules">
+            <Principal Role="UserRule">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="User">
@@ -365,159 +343,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ChairtyDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Advertises" EntityType="Self.Advertise" />
-          <EntitySet Name="Credits" EntityType="Self.Credit" />
-          <EntitySet Name="Donations" EntityType="Self.Donation" />
-          <EntitySet Name="News" EntityType="Self.News" />
-          <EntitySet Name="Permissions" EntityType="Self.Permission" />
-          <EntitySet Name="Requists" EntityType="Self.Requist" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="UserRules" EntityType="Self.UserRule" />
-          <EntitySet Name="Videos" EntityType="Self.Video" />
-          <AssociationSet Name="FK_User_Credit" Association="Self.FK_User_Credit">
-            <End Role="Credit" EntitySet="Credits" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Donation_User" Association="Self.FK_Donation_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Donation" EntitySet="Donations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Permission_Rule" Association="Self.FK_Permission_Rule">
-            <End Role="UserRules" EntitySet="UserRules" />
-            <End Role="Permission" EntitySet="Permissions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Requist_User" Association="Self.FK_Requist_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Requist" EntitySet="Requists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Rule" Association="Self.FK_User_Rule">
-            <End Role="UserRules" EntitySet="UserRules" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <EntitySet Name="AboutUs" EntityType="ChairtyDbModel.AboutU" />
-          <EntitySet Name="ContactUs" EntityType="ChairtyDbModel.ContactU" />
-        </EntityContainer>
-        <EntityType Name="AboutU">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ContactU">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MessageDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ChairtyDbModelStoreContainer" CdmEntityContainer="ChairtyDbEntities">
-          <EntitySetMapping Name="Advertises">
-            <EntityTypeMapping TypeName="ChairtyDbModel.Advertise">
-              <MappingFragment StoreEntitySet="Advertise">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Credits">
-            <EntityTypeMapping TypeName="ChairtyDbModel.Credit">
-              <MappingFragment StoreEntitySet="Credit">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Donations">
-            <EntityTypeMapping TypeName="ChairtyDbModel.Donation">
-              <MappingFragment StoreEntitySet="Donation">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IsCredit" ColumnName="IsCredit" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="News">
-            <EntityTypeMapping TypeName="ChairtyDbModel.News">
-              <MappingFragment StoreEntitySet="News">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Permissions">
-            <EntityTypeMapping TypeName="ChairtyDbModel.Permission">
-              <MappingFragment StoreEntitySet="Permission">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Requists">
-            <EntityTypeMapping TypeName="ChairtyDbModel.Requist">
-              <MappingFragment StoreEntitySet="Requist">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="RequireMoney" ColumnName="RequireMoney" />
-                <ScalarProperty Name="DetailsProblem" ColumnName="DetailsProblem" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ChairtyDbModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ChairtyDbModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Magnitude" ColumnName="Magnitude" />
-                <ScalarProperty Name="Landitude" ColumnName="Landitude" />
-                <ScalarProperty Name="CreditNumber" ColumnName="CreditNumber" />
-                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
-                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
-                <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
-                <ScalarProperty Name="BloodCategory" ColumnName="BloodCategory" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRules">
-            <EntityTypeMapping TypeName="ChairtyDbModel.UserRule">
-              <MappingFragment StoreEntitySet="UserRules">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="RuleName" ColumnName="RuleName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Videos">
-            <EntityTypeMapping TypeName="ChairtyDbModel.Video">
-              <MappingFragment StoreEntitySet="Video">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AboutUs">
             <EntityTypeMapping TypeName="ChairtyDbModel.AboutU">
               <MappingFragment StoreEntitySet="AboutUs">
@@ -526,10 +357,108 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Advertises">
+            <EntityTypeMapping TypeName="ChairtyDbModel.Advertise">
+              <MappingFragment StoreEntitySet="Advertise">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ContactUs">
             <EntityTypeMapping TypeName="ChairtyDbModel.ContactU">
               <MappingFragment StoreEntitySet="ContactUs">
                 <ScalarProperty Name="MessageDetails" ColumnName="MessageDetails" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Credits">
+            <EntityTypeMapping TypeName="ChairtyDbModel.Credit">
+              <MappingFragment StoreEntitySet="Credit">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donations">
+            <EntityTypeMapping TypeName="ChairtyDbModel.Donation">
+              <MappingFragment StoreEntitySet="Donation">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="ChairtyDbModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="ChairtyDbModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requists">
+            <EntityTypeMapping TypeName="ChairtyDbModel.Requist">
+              <MappingFragment StoreEntitySet="Requist">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DetailsProblem" ColumnName="DetailsProblem" />
+                <ScalarProperty Name="RequireMoney" ColumnName="RequireMoney" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ChairtyDbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ChairtyDbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="BloodCategory" ColumnName="BloodCategory" />
+                <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
+                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
+                <ScalarProperty Name="CreditNumber" ColumnName="CreditNumber" />
+                <ScalarProperty Name="Landitude" ColumnName="Landitude" />
+                <ScalarProperty Name="Magnitude" ColumnName="Magnitude" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRules">
+            <EntityTypeMapping TypeName="ChairtyDbModel.UserRule">
+              <MappingFragment StoreEntitySet="UserRules">
+                <ScalarProperty Name="RuleName" ColumnName="RuleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="ChairtyDbModel.Video">
+              <MappingFragment StoreEntitySet="Video">
+                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

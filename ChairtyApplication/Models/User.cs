@@ -14,14 +14,7 @@ namespace ChairtyApplication.Models
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Donations = new HashSet<Donation>();
-            this.Requists = new HashSet<Requist>();
-        }
-    
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
@@ -34,10 +27,6 @@ namespace ChairtyApplication.Models
         public string BloodCategory { get; set; }
     
         public virtual Credit Credit { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Donation> Donations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Requist> Requists { get; set; }
         public virtual UserRule UserRule { get; set; }
     }
 }

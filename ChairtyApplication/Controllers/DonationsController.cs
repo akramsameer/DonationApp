@@ -2,9 +2,12 @@
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using ChairtyApplication.Models;
 using ChairtyApplication.Models.ViewModels.Admin;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using WebGrease.Css.Extensions;
 
 namespace ChairtyApplication.Controllers
@@ -13,27 +16,23 @@ namespace ChairtyApplication.Controllers
     public class DonationsController : Controller
     {
         private ChairtyDbEntities db = new ChairtyDbEntities();
+        private ApplicationDbContext _context = new ApplicationDbContext();
 
         // GET: Donations
         public ActionResult Index()
         {
             var ret = new List<DonationViewModel>();
-            //            ret.Add(new DonationViewModel()
-            //            {
-            //                DonationMoney = 20,
-            //                DonatorNationalId = "054848486",
-            //                DonatorBloodType = "A+",
-            //                DonatorName = "fddddddddddd"
-            //            });
-            db.Donations.Include(r => r.User).ForEach(x =>
+            db.Donations.ForEach(x =>
             {
-                //                Debug.Assert(x.RequireMoney != null, "x.RequireMoney != null");
+                var user = _context.Users.Find(x.UserId);
                 ret.Add(new DonationViewModel()
                 {
-                    DonatorName = x.User.UserName,
-                    DonatorBloodType = x.User.BloodCategory,
-                    DonatorNationalId = x.User.IdentificationNumber,
-                    DonationMoney = (double)x.Cost
+                    DonatorName = user.UserName,
+                    DonatorBloodType = user.BloodType,
+                    DonatorNationalId = user.NationalId,
+                    DonationMoney = (double)x.Cost,
+                    DonatorMail = user.Email,
+                    Id = x.Id
                 });
             });
             return View(ret);
@@ -65,13 +64,19 @@ namespace ChairtyApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,IsCredit,Cost,UserId")] Donation donation)
+        public ActionResult Create(Donation donation)
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
+//                var user = System.Web.HttpContext.Current
+//                    .GetOwinContext().
+//                    GetUserManager<ApplicationUserManager>().
+//                    FindById(userId);
+                donation.UserId = userId;
                 db.Donations.Add(donation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             ViewBag.UserId = new SelectList(db.Users, "Id", "Password", donation.UserId);
