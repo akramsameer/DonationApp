@@ -19,5 +19,15 @@ namespace ChairtyApplication.Models.ViewModels.Authentication
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string  UserName { get; set; }
+
+        public string NationalId { get; set; }
+        public string BloodType { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string CreditNumber { get; set; }
+        public int CreditId { get; set; }
+        public int RuleId { get; set; }
     }
 }

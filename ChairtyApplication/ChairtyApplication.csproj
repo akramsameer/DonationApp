@@ -219,6 +219,19 @@
     <Compile Include="Controllers\UserRulesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
+    <Compile Include="Migrations\201805251650118_InitialCreate.cs" />
+    <Compile Include="Migrations\201805251650118_InitialCreate.Designer.cs">
+      <DependentUpon>201805251650118_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805251726220_initialize.cs" />
+    <Compile Include="Migrations\201805251726220_initialize.Designer.cs">
+      <DependentUpon>201805251726220_initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805251730103_addingForgienKeys.cs" />
+    <Compile Include="Migrations\201805251730103_addingForgienKeys.Designer.cs">
+      <DependentUpon>201805251730103_addingForgienKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AboutU.cs">
       <DependentUpon>ChairtyModel.tt</DependentUpon>
     </Compile>
@@ -1804,6 +1817,17 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805251650118_InitialCreate.resx">
+      <DependentUpon>201805251650118_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805251726220_initialize.resx">
+      <DependentUpon>201805251726220_initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805251730103_addingForgienKeys.resx">
+      <DependentUpon>201805251730103_addingForgienKeys.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

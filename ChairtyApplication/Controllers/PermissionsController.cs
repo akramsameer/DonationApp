@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ChairtyApplication.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ChairtyApplication.Controllers
 {
@@ -13,6 +14,7 @@ namespace ChairtyApplication.Controllers
         // GET: Permissions
         public ActionResult Index()
         {
+           
             var permissions = db.Permissions.Include(p => p.UserRule);
             return View(permissions.ToList());
         }
