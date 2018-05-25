@@ -9,6 +9,7 @@ using WebGrease.Css.Extensions;
 
 namespace ChairtyApplication.Controllers
 {
+    [Authorize]
     public class DonationsController : Controller
     {
         private ChairtyDbEntities db = new ChairtyDbEntities();
@@ -52,7 +53,6 @@ namespace ChairtyApplication.Controllers
             }
             return View(donation);
         }
-
         // GET: Donations/Create
         public ActionResult Create()
         {

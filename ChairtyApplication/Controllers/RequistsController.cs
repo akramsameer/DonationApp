@@ -9,6 +9,7 @@ using WebGrease.Css.Extensions;
 
 namespace ChairtyApplication.Controllers
 {
+    [Authorize]
     public class RequistsController : Controller
     {
         private ChairtyDbEntities db = new ChairtyDbEntities();
