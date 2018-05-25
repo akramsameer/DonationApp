@@ -2,56 +2,198 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout Admin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
 
+<section id="slider-menu">
+    <div class="main-menu">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Requist</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.RequireMoney, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RequireMoney, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RequireMoney, "", new { @class = "text-danger" })
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                            aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <img src="~/Content/images/logoHome.png" />
+                        <b> جمعيتى </b>
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active">
+                            <a href="#">
+                                الرئيسيه
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">الاخبار</a>
+                        </li>
+                        <li>
+                            <a href="#">الفيديوهات</a>
+                        </li>
+                        <li>
+                            <a href="#">الإعلانات</a>
+                        </li>
+                        <li>
+                            <a href="#">من نحن</a>
+                        </li>
+                        <li>
+                            <a href="#">تواصل معنا</a>
+                        </li>
+                        <li>
+                            <a href="#"> حساب الزكاه </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
             </div>
-        </div>
+            <!-- /.container-fluid -->
+        </nav>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DetailsProblem, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DetailsProblem, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DetailsProblem, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+    <div class="slider">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="~/Content/images/home-header.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h2 class="kids"> الاطفال الاجئين </h2>
+                        <div class="clearfix"></div>
+                        <h2 class="aid"> قدم لهؤلا الاطفال يد العون والمساعده </h2>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/bg24.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h2 class="kids"> الاطفال الاجئين </h2>
+                        <div class="clearfix"></div>
+                        <h2 class="aid"> قدم لهؤلا الاطفال يد العون والمساعده </h2>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/D1D1D1.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h2 class="kids"> الاطفال الاجئين </h2>
+                        <div class="clearfix"></div>
+                        <h2 class="aid"> قدم لهؤلا الاطفال يد العون والمساعده </h2>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-}
+</section>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<section id="log-signup" style="min-height:75vh !important;">
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    <div class="sec-overlay"></div>
+    <div class="container">
+        <div class="content">
+
+            <div class="col-md-8 col-md-offset-2">
+
+                <h3 class=" line-bottom">
+                    إضافه حاله او مشكله جديده
+                </h3>
+                <br>
+                <!-- ===== START: Paypal Both Onetime/Recurring Form ===== -->
+                <form action="#">
+                    <div class="row">
+
+
+                        <div class="form-group col-md-6">
+                            <label for="form_name_stat"> الإسم </label>
+                            <input id="form_name_stat" name="form_name_stat" class="form-control" type="text">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="form_email_stat"> بريدك الإلكتروني </label>
+                            <input id="form_email_stat" name="form_email_stat" class="form-control" type="text">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="form_problem"> ماهي مشكلتك التي تعاني منها ؟ </label>
+                            <textarea id="form_problem" name="form_problem" class="form-control"></textarea>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" data-loading-text="Please wait...">إضافه</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@* *@
+@* <h2>Create</h2> *@
+@* *@
+@* *@
+@* @using (Html.BeginForm())  *@
+@* { *@
+@*     @Html.AntiForgeryToken() *@
+@*      *@
+@*     <div class="form-horizontal"> *@
+@*         <h4>Requist</h4> *@
+@*         <hr /> *@
+@*         @Html.ValidationSummary(true, "", new { @class = "text-danger" }) *@
+@*         <div class="form-group"> *@
+@*             @Html.LabelFor(model => model.RequireMoney, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+@*             <div class="col-md-10"> *@
+@*                 @Html.EditorFor(model => model.RequireMoney, new { htmlAttributes = new { @class = "form-control" } }) *@
+@*                 @Html.ValidationMessageFor(model => model.RequireMoney, "", new { @class = "text-danger" }) *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <div class="form-group"> *@
+@*             @Html.LabelFor(model => model.DetailsProblem, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+@*             <div class="col-md-10"> *@
+@*                 @Html.EditorFor(model => model.DetailsProblem, new { htmlAttributes = new { @class = "form-control" } }) *@
+@*                 @Html.ValidationMessageFor(model => model.DetailsProblem, "", new { @class = "text-danger" }) *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <div class="form-group"> *@
+@*             @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" }) *@
+@*             <div class="col-md-10"> *@
+@*                 @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" }) *@
+@*                 @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" }) *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <div class="form-group"> *@
+@*             <div class="col-md-offset-2 col-md-10"> *@
+@*                 <input type="submit" value="Create" class="btn btn-default" /> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* } *@
+@* *@
+@* <div> *@
+@*     @Html.ActionLink("Back to List", "Index") *@
+@* </div> *@
+@* *@
+@* @section Scripts { *@
+@*     @Scripts.Render("~/bundles/jqueryval") *@
+@* } *@

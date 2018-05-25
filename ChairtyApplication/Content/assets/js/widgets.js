@@ -25,13 +25,13 @@
     var myChart = new Chart( ctx, {
         type: 'line',
         data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July' , 'Aug' , 'Sept', 'Oct' ,'Nov' , 'Dec'],
             type: 'line',
             datasets: [ {
-                data: [65, 59, 84, 84, 51, 55, 40],
+                data: [65, 59, 84, 84, 51, 55, 40, 65, 59, 84, 84, 51],
                 label: 'Dataset',
                 backgroundColor: 'transparent',
-                borderColor: 'rgba(255,255,255,.55)',
+                borderColor: 'rgba(255,255,255,.55)',   
             }, ]
         },
         options: {

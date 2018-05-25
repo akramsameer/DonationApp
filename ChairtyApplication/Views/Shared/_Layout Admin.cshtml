@@ -93,16 +93,6 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-table"></i><a href="@Url.Action("index","Requists")">Requests Reports</a></li>
                             <li><i class="menu-icon fa fa-table"></i><a href="@Url.Action("index","Donations")">Donate Reports</a></li>
-                            <li><i class="menu-icon fa fa-table"></i><a href="@Url.Action("index","Advertises")">Advertise Reports</a></li>
-                        </ul>
-                    </li>
-
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Month Reports</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-table"></i><a href="@Url.Action()">Requests Reports</a></li>
-                            <li><i class="menu-icon fa fa-table"></i><a href="@Url.Action()">Donation Reports</a></li>
                         </ul>
                     </li>
 
@@ -111,8 +101,8 @@
                     <li class="menu-item-has-children">
                         <a href="@Url.Action("CreateSubAdmin" , "Users")" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Create Sub Admin</a>
                         @*<a href="@Url.Action("Index","SubAdmin")">
-                                <i class="menu-icon fa fa-user"></i> Sub Admin
-                            </a>*@
+                <i class="menu-icon fa fa-user"></i> Sub Admin
+            </a>*@
                     </li>
                     <h3 class="menu-title">Data</h3><!-- /.menu-title -->
                     <li>
@@ -120,6 +110,26 @@
                     </li>
                     <li>
                         <a href="@Url.Action("Index","News")"><><i class="menu-icon fa fa-line-chart"></i>News</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("index", "Advertises")">
+                            <i class="menu-icon fa fa-table"></i>
+                            Advertises
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("index", "ContactUs")">
+                            <i class="menu-icon fa fa-comments"></i>
+                            Messages
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("index", "AboutUs")">
+                            <i class="menu-icon fa fa-university"></i>
+                            About
+                        </a>
                     </li>
 
                 </ul>
@@ -281,34 +291,20 @@
     <script src="~/Content/assets/js/main.js"></script>
 
 
-    <script src="~/Content/assets/js/lib/chart-js/Chart.bundle.js"></script>
-    <script src="~/Content/assets/js/dashboard.js"></script>
-    <script src="~/Content/assets/js/widgets.js"></script>
+    @* <script src="~/Content/assets/js/lib/chart-js/Chart.bundle.js"></script> *@
+    @* <script src="~/Content/assets/js/dashboard.js"></script> *@
+    @* <script src="~/Content/assets/js/widgets.js"></script> *@
     <script src="~/Content/assets/js/lib/vector-map/jquery.vmap.js"></script>
     <script src="~/Content/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
     <script src="~/Content/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
     <script src="~/Content/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+    <script src="~/Content/Scripts/jquery.js"></script>
+    <script src="~/Content/Scripts/bootstrap.js"></script>
+    <script src="~/Content/assets/js/jquery.blueimp-gallery.min.js"></script>
 
 
     <script>
         // ReSharper disable once UnusedParameter
-        (function ($) {
-            "use strict";
-
-            jQuery('#vmap').vectorMap({
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: ['#1de9b6', '#03a9f5'],
-                normalizeFunction: 'polynomial'
-            });
-        })(jQuery);
-
         function handleFiles(files) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -333,9 +329,41 @@
                 reader.readAsDataURL(file);
             }
         }
-    </script>
-    <script src="~/Content/assets/js/jquery.blueimp-gallery.min.js"></script>
 
+        function uploadImage(e) {
+            var files = e.files;
+            handleFiles(files);
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/Images/UploadFile',
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            console.log(result);
+                            $("#imagePath").val(result);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        };
+
+    </script>
 
     @*@Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")*@

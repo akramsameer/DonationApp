@@ -16,7 +16,7 @@ namespace ChairtyApplication.Controllers
         // GET: Donations
         public ActionResult Index()
         {
-            // var ret = new List<DonationViewModel>();
+            var ret = new List<DonationViewModel>();
             //            ret.Add(new DonationViewModel()
             //            {
             //                DonationMoney = 20,
@@ -24,20 +24,18 @@ namespace ChairtyApplication.Controllers
             //                DonatorBloodType = "A+",
             //                DonatorName = "fddddddddddd"
             //            });
-            db.Requists.Include(r => r.User).ForEach(x =>
+            db.Donations.Include(r => r.User).ForEach(x =>
             {
-                Debug.Assert(x.RequireMoney != null, "x.RequireMoney != null");
-                //    ret.Add(new DonationViewModel()
-                //    {
-                //        DonatorName = x.User.UserName,
-                //        DonatorBloodType = x.User.BloodCategory,
-                //        DonatorNationalId = x.User.IdentificationNumber,
-                //        DonationMoney = (double)x.RequireMoney
-                //    });
-                //});
-                //return View(ret);
+                //                Debug.Assert(x.RequireMoney != null, "x.RequireMoney != null");
+                ret.Add(new DonationViewModel()
+                {
+                    DonatorName = x.User.UserName,
+                    DonatorBloodType = x.User.BloodCategory,
+                    DonatorNationalId = x.User.IdentificationNumber,
+                    DonationMoney = (double)x.Cost
+                });
             });
-                return null;
+            return View(ret);
         }
 
         // GET: Donations/Details/5

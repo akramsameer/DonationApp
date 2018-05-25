@@ -35,5 +35,7 @@ namespace ChairtyApplication.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRule> UserRules { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
+        public virtual DbSet<AboutU> AboutUs { get; set; }
+        public virtual DbSet<ContactU> ContactUs { get; set; }
     }
 }

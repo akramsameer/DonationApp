@@ -5,6 +5,30 @@
     Layout = "~/Views/Shared/_Layout Admin.cshtml";
 }
 
+
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Advertise</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="active">Advertise</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="row">
@@ -23,8 +47,6 @@
                     </div>
                     <div class="card-body">
                         <div class="form-horizontal">
-                            <h4>Advertise</h4>
-                            <hr />
                             <div class="form-group">
                                 <label for="text-add" class="control-label col-md-2">النص</label>
                                 @*@Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })*@

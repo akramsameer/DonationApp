@@ -203,9 +203,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SmsService.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdvertisesController.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\CreditsController.cs" />
     <Compile Include="Controllers\DonationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -217,7 +219,15 @@
     <Compile Include="Controllers\UserRulesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
+    <Compile Include="Models\AboutU.cs">
+      <DependentUpon>ChairtyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContactU.cs">
+      <DependentUpon>ChairtyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\Admin\AdvertiseVm.cs" />
+    <Compile Include="Models\ViewModels\Admin\DashBoardVm.cs" />
+    <Compile Include="Models\ViewModels\Admin\HomeVm.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1476,20 +1486,27 @@
     <Content Include="Content\Scripts\animat.js" />
     <Content Include="Content\Scripts\bootstrap-select.min.js" />
     <Content Include="Content\Scripts\bootstrap.js" />
+    <Content Include="Content\Scripts\bootstrap.min.js" />
     <Content Include="Content\Scripts\head.js" />
+    <Content Include="Content\Scripts\jquery-3.1.1.min.js" />
     <Content Include="Content\Scripts\jquery.fancybox.min.js" />
     <Content Include="Content\Scripts\jquery.js" />
+    <Content Include="Content\Scripts\morris-demo.js" />
+    <Content Include="Content\Scripts\morris.js" />
+    <Content Include="Content\Scripts\raphael-2.1.0.min.js" />
     <Content Include="Content\Scripts\scrollspy.js" />
     <Content Include="Content\Scripts\YouTubePopUp.jquery.js" />
     <Content Include="Content\Style\animate.css" />
     <Content Include="Content\Style\bootstrap-rtl.css" />
     <Content Include="Content\Style\bootstrap-select.min.css" />
     <Content Include="Content\Style\bootstrap.css" />
+    <Content Include="Content\Style\bootstrap.min.css" />
     <Content Include="Content\Style\english.css" />
     <Content Include="Content\Style\font-awesome.css" />
     <Content Include="Content\Style\frame.css" />
     <Content Include="Content\Style\jquery.fancybox.min.css" />
     <Content Include="Content\Style\mobile.css" />
+    <Content Include="Content\Style\morris-0.4.3.min.css" />
     <Content Include="Content\Style\style.1.css" />
     <Content Include="Content\Style\style.css" />
     <Content Include="Content\Style\YouTubePopUp.css" />
@@ -1749,6 +1766,16 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\CreateSubAdmin.cshtml" />
+    <Content Include="Views\AboutUs\Create.cshtml" />
+    <Content Include="Views\AboutUs\Delete.cshtml" />
+    <Content Include="Views\AboutUs\Details.cshtml" />
+    <Content Include="Views\AboutUs\Edit.cshtml" />
+    <Content Include="Views\AboutUs\Index.cshtml" />
+    <Content Include="Views\ContactUs\Create.cshtml" />
+    <Content Include="Views\ContactUs\Delete.cshtml" />
+    <Content Include="Views\ContactUs\Details.cshtml" />
+    <Content Include="Views\ContactUs\Edit.cshtml" />
+    <Content Include="Views\ContactUs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\" />

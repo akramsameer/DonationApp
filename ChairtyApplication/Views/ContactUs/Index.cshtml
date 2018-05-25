@@ -1,6 +1,4 @@
-﻿@model IEnumerable<ChairtyApplication.Models.Video>
-
-
+﻿@model IEnumerable<ChairtyApplication.Models.ContactU>
 
 @{
     ViewBag.Title = "Index";
@@ -8,11 +6,13 @@
 }
 
 
+
+
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Vedios</h1>
+                <h1>Messages</h1>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li><a href="#">Dashboard</a></li>
-                    <li class="active">Vedios</li>
+                    <li class="active">Messages</li>
                 </ol>
             </div>
         </div>
@@ -36,40 +36,22 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Data</strong>
-                        <span class="float-right">
-                            <a href="@Url.Action("Create")">
-                                <button type="button" class="btn btn-primary">
-                                    <i class="fa fa-plus"></i> Add
-                                </button>
-                            </a>
-                        </span>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered text-center">
                             <thead>
                                 <tr>
-                                    <th>العنوان</th>
-                                    <th>Actions</th>
+                                    <th>تفاصيل الرسالة</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr>
-                                    <td><a href="@item.URL" target="_blank">@item.URL</a></td>
-                                    <td>
-                                        <a href="@Url.Action("Edit",new{id = item.Id})">
-                                            <button type="button" class="btn btn-secondary">
-                                                <i class="fa fa-refresh"></i>
-                                            </button>
-                                        </a>
-                                        <a href="@Url.Action("Delete",new{id = item.Id})">
-                                            <button type="button" class="btn btn-danger">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            <p>@item.MessageDetails</p>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -87,11 +69,7 @@
 
 
 
-@* *@
-@* @{ *@
-@*     ViewBag.Title = "Index"; *@
-@*     Layout = "~/Views/Shared/_Layout Admin.cshtml"; *@
-@* } *@
+
 @* *@
 @* <h2>Index</h2> *@
 @* *@
@@ -101,7 +79,7 @@
 @* <table class="table"> *@
 @*     <tr> *@
 @*         <th> *@
-@*             @Html.DisplayNameFor(model => model.URL) *@
+@*             @Html.DisplayNameFor(model => model.MessageDetails) *@
 @*         </th> *@
 @*         <th></th> *@
 @*     </tr> *@
@@ -109,7 +87,7 @@
 @* @foreach (var item in Model) { *@
 @*     <tr> *@
 @*         <td> *@
-@*             @Html.DisplayFor(modelItem => item.URL) *@
+@*             @Html.DisplayFor(modelItem => item.MessageDetails) *@
 @*         </td> *@
 @*         <td> *@
 @*             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) | *@
