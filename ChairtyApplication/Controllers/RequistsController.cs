@@ -9,9 +9,11 @@ using WebGrease.Css.Extensions;
 
 namespace ChairtyApplication.Controllers
 {
+    [Authorize]
     public class RequistsController : Controller
     {
         private ChairtyDbEntities db = new ChairtyDbEntities();
+        private ApplicationDbContext _context = new ApplicationDbContext();
 
         // GET: Requists
         public ActionResult Index()
@@ -25,14 +27,14 @@ namespace ChairtyApplication.Controllers
 //                ProblemStatement = "fdjkjfdhjdfkj",
 //                Name = "fddddddddddd"
 //            });
-            db.Requists.Include(r => r.User).ForEach(x =>
+            db.Requists.ForEach(x =>
             {
-                Debug.Assert(x.RequireMoney != null, "x.RequireMoney != null");
+                var user = _context.Users.Find(x.UserId);
                 ret.Add(new RequestViewModel()
                 {
-                    Name = x.User.UserName,
-                    BloodType = x.User.BloodCategory,
-                    NationalId = x.User.IdentificationNumber,
+                    Name = user.UserName,
+                    BloodType = user.BloodType,
+                    NationalId = user.NationalId,
                     ProblemStatement = x.DetailsProblem,
                     RequiredMoney = (double)x.RequireMoney
                 } );

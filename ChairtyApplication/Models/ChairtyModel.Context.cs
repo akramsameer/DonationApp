@@ -25,7 +25,9 @@ namespace ChairtyApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AboutU> AboutUs { get; set; }
         public virtual DbSet<Advertise> Advertises { get; set; }
+        public virtual DbSet<ContactU> ContactUs { get; set; }
         public virtual DbSet<Credit> Credits { get; set; }
         public virtual DbSet<Donation> Donations { get; set; }
         public virtual DbSet<News> News { get; set; }
@@ -35,7 +37,5 @@ namespace ChairtyApplication.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRule> UserRules { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
-        public virtual DbSet<AboutU> AboutUs { get; set; }
-        public virtual DbSet<ContactU> ContactUs { get; set; }
     }
 }

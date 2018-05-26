@@ -17,8 +17,6 @@ namespace ChairtyApplication.Models
         public int Id { get; set; }
         public Nullable<decimal> RequireMoney { get; set; }
         public string DetailsProblem { get; set; }
-        public int UserId { get; set; }
-    
-        public virtual User User { get; set; }
+        public string UserId { get; set; }
     }
 }

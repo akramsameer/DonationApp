@@ -112,33 +112,39 @@
                 </h3>
                 <br>
                 <!-- ===== START: Paypal Both Onetime/Recurring Form ===== -->
-                <form action="#">
-                    <div class="row">
+                
+                
+                @using (Html.BeginForm())
+                {
+                    <form action="#">
+                        <div class="row">
 
 
-                        <div class="form-group col-md-6">
-                            <label for="form_name_stat"> الإسم </label>
-                            <input id="form_name_stat" name="form_name_stat" class="form-control" type="text">
-                        </div>
+                            <div class="form-group col-md-6">
+                                @Html.Label("Name", "المبلغ المطلوب")
+                                @Html.EditorFor(model => model.RequireMoney, new { htmlAttributes = new { id= "Name", @class = "form-control"} })
+                                @Html.ValidationMessageFor(model => model.RequireMoney, "", new { @class = "text-danger" })
+                            </div>
 
-                        <div class="form-group col-md-6">
-                            <label for="form_email_stat"> بريدك الإلكتروني </label>
-                            <input id="form_email_stat" name="form_email_stat" class="form-control" type="text">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="form_problem"> ماهي مشكلتك التي تعاني منها ؟ </label>
-                            <textarea id="form_problem" name="form_problem" class="form-control"></textarea>
-                        </div>
+                            <div class="form-group col-md-12">
+                                <label for="form_problem"> ماهي مشكلتك التي تعاني منها ؟ </label>
+                                <textarea id="form_problem" name="form_problem" class="form-control"></textarea>
+                            </div>
 
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default" data-loading-text="Please wait...">إضافه</button>
+                            <div class="form-group col-md-12">
+                                <label for="form_problem"> المبلغ المطلوب؟ </label>
+                                <input id="form_problem" type="number" name="form_problem" class="form-control"/>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default" data-loading-text="Please wait...">إضافه</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
-
+                }
 
             </div>
 

@@ -15,10 +15,7 @@ namespace ChairtyApplication.Models
     public partial class Donation
     {
         public int Id { get; set; }
-        public bool IsCredit { get; set; }
         public decimal Cost { get; set; }
-        public int UserId { get; set; }
-    
-        public virtual User User { get; set; }
+        public string UserId { get; set; }
     }
 }

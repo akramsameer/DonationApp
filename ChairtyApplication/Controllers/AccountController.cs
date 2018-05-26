@@ -162,7 +162,13 @@ namespace ChairtyApplication.Controllers
                     Longitude = model.Longitude,
                     NationalId = model.NationalId,
                     EmailConfirmed = true,
-                    Latitude = model.Latitude
+                    Latitude = model.Latitude,
+<<<<<<< HEAD
+                    CreditNumber = model.CreditNumber,
+                    
+=======
+                    CreditNumber = model.CreditNumber
+>>>>>>> 2ec73a13adf1c55b72a47bac9868238f240d2556
                 };
                       
                 var result = await UserManager.CreateAsync(user, model.Password);
