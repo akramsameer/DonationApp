@@ -32,10 +32,10 @@ namespace ChairtyApplication.Models
         public virtual DbSet<Donation> Donations { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
-        public virtual DbSet<Requist> Requists { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRule> UserRules { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
+        public virtual DbSet<Requist> Requists { get; set; }
     }
 }

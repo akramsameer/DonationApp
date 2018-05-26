@@ -66,6 +66,8 @@
           <Property Name="RequireMoney" Type="money" />
           <Property Name="DetailsProblem" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserIdAssign" Type="nvarchar" MaxLength="50" />
+          <Property Name="Done" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -181,7 +183,6 @@
           <EntitySet Name="Donations" EntityType="ChairtyDbModel.Donation" />
           <EntitySet Name="News" EntityType="ChairtyDbModel.News" />
           <EntitySet Name="Permissions" EntityType="ChairtyDbModel.Permission" />
-          <EntitySet Name="Requists" EntityType="ChairtyDbModel.Requist" />
           <EntitySet Name="sysdiagrams" EntityType="ChairtyDbModel.sysdiagram" />
           <EntitySet Name="Users" EntityType="ChairtyDbModel.User" />
           <EntitySet Name="UserRules" EntityType="ChairtyDbModel.UserRule" />
@@ -198,6 +199,7 @@
             <End Role="UserRule" EntitySet="UserRules" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Requists" EntityType="ChairtyDbModel.Requist" />
         </EntityContainer>
         <EntityType Name="AboutU">
           <Key>
@@ -253,15 +255,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RuleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserRule" Relationship="ChairtyDbModel.FK_Permission_Rule" FromRole="Permission" ToRole="UserRule" />
-        </EntityType>
-        <EntityType Name="Requist">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RequireMoney" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DetailsProblem" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -343,6 +336,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Requist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequireMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DetailsProblem" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserIdAssign" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Done" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -409,16 +413,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Requists">
-            <EntityTypeMapping TypeName="ChairtyDbModel.Requist">
-              <MappingFragment StoreEntitySet="Requist">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="DetailsProblem" ColumnName="DetailsProblem" />
-                <ScalarProperty Name="RequireMoney" ColumnName="RequireMoney" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ChairtyDbModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -459,6 +453,18 @@
             <EntityTypeMapping TypeName="ChairtyDbModel.Video">
               <MappingFragment StoreEntitySet="Video">
                 <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requists">
+            <EntityTypeMapping TypeName="ChairtyDbModel.Requist">
+              <MappingFragment StoreEntitySet="Requist">
+                <ScalarProperty Name="Done" ColumnName="Done" />
+                <ScalarProperty Name="UserIdAssign" ColumnName="UserIdAssign" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DetailsProblem" ColumnName="DetailsProblem" />
+                <ScalarProperty Name="RequireMoney" ColumnName="RequireMoney" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

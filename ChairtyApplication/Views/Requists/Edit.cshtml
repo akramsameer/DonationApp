@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout Admin.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Assign SubAdmine</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Requist</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -21,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RequireMoney, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RequireMoney, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DisplayFor(model => model.RequireMoney, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RequireMoney, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,18 +28,33 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DetailsProblem, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DetailsProblem, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DisplayFor(model => model.DetailsProblem, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DetailsProblem, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+        @if (ViewBag.ruleid == 1)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserIdAssign, "UserIdAssign", htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.UserIdAssign, (SelectList) ViewBag.zeroooo, htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.UserIdAssign, "", new {@class = "text-danger"})
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserIdAssign, "هل أنهيت الطلب", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.UserIdAssign,
+                        (SelectList)ViewBag.ant
+                        , htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.UserIdAssign, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

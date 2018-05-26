@@ -54,6 +54,7 @@
                                     <th>الرقم القومي</th>
                                     <th>فصيله الدم</th>
                                     <th>المشكله</th>
+                                    <th>تعين التاسك</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -79,15 +80,18 @@
                                             @request.ProblemStatement
                                         </td>
                                         <td>
+                                            @request.AssignUserName
+                                        </td>
+                                        <td>
                                             
                                             @* @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | *@
                                             @* @Html.ActionLink("Details", "Details", new { id = item.Id }) | *@
                                             @* @Html.ActionLink("Delete", "Delete", new { id = item.Id }) *@
                                             
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#acceptModel">
+                                            <button type="button"onclick="location.href = '@Url.Action("Edit", "Requists", new { id = request.Id })'" class="btn btn-success" data-toggle="modal" data-target="#acceptModel">
                                                 <i class="fa fa-check"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">
+                                            <button type="button" onclick="location.href = '@Url.Action("Delete", "Requists", new { id = request.Id })'" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">
                                                 <i class="fa fa-close"></i>
                                             </button>
                                             @*@Html.ActionLink("", "Delete", new {id = request.requestId}, new { htmlAttributes = new { @class = "btn btn-danger" , @style = "color:red" } })*@

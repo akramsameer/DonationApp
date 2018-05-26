@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ChairtyApplication.Models;
 using ChairtyApplication.Models.ViewModels.Admin;
+using Microsoft.AspNet.Identity;
 using WebGrease.Css.Extensions;
 
 namespace ChairtyApplication.Controllers
@@ -30,8 +32,12 @@ namespace ChairtyApplication.Controllers
             db.Requists.ForEach(x =>
             {
                 var user = _context.Users.Find(x.UserId);
+                var assinguser = _context.Users.Find(x.UserIdAssign);
                 ret.Add(new RequestViewModel()
                 {
+                    AssignId = (assinguser == null) ? "0": assinguser.Id,
+                    AssignUserName = (assinguser == null)?"لم يتم تعين مسئول بعد": assinguser.UserName,
+                    Id = x.Id,
                     Name = user.UserName,
                     BloodType = user.BloodType,
                     NationalId = user.NationalId,
@@ -39,7 +45,16 @@ namespace ChairtyApplication.Controllers
                     RequiredMoney = (double)x.RequireMoney
                 } );
             });
-            return View(ret);
+            int ruleid = _context.Users.Find(User.Identity.GetUserId()).RuleId;
+            if(ruleid == 1)
+                return View(ret);
+            else if (ruleid == 2)
+            {
+                ret = ret.Where(m => m.AssignId == User.Identity.GetUserId()).ToList();
+                return View(ret);
+            }
+
+            return RedirectToAction("Login", "Users");
         }
 
         // GET: Requists/Details/5
@@ -69,13 +84,14 @@ namespace ChairtyApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RequireMoney,DetailsProblem,UserId")] Requist requist)
+        public ActionResult Create(Requist requist)
         {
             if (ModelState.IsValid)
             {
+                requist.UserId = User.Identity.GetUserId();
                 db.Requists.Add(requist);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.UserId = new SelectList(db.Users, "Id", "Password", requist.UserId);
@@ -94,7 +110,14 @@ namespace ChairtyApplication.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Password", requist.UserId);
+            ViewBag.zeroooo = new SelectList(_context.Users.Where(d => d.RuleId == 2), "Id", "UserName", requist.UserIdAssign);
+            ViewBag.ruleid = _context.Users.Find(User.Identity.GetUserId()).RuleId;
+
+            string xx = requist.Done.ToString();
+            ViewBag.ant = new SelectList(
+                new[] {new {Value = "True", Text = "Yes"}, new {Value = "False", Text = "No"}}
+                , "Value", "Text", xx
+            );
             return View(requist);
         }
 
@@ -103,15 +126,30 @@ namespace ChairtyApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RequireMoney,DetailsProblem,UserId")] Requist requist)
+        public ActionResult Edit(Requist requist)
         {
+            var ruleid = _context.Users.Find(User.Identity.GetUserId()).RuleId;
             if (ModelState.IsValid)
             {
-                db.Entry(requist).State = EntityState.Modified;
+                
+                var fromdb = db.Requists.SingleOrDefault(r => r.Id == requist.Id);
+                if (ruleid == 1)
+                    fromdb.UserIdAssign = requist.UserIdAssign;
+                else
+                    fromdb.Done = requist.UserIdAssign == "true";
                 db.SaveChanges();
+                fromdb = db.Requists.SingleOrDefault(r => r.Id == requist.Id);
+
                 return RedirectToAction("Index");
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Password", requist.UserId);
+
+            ViewBag.zeroooo = new SelectList(_context.Users.Where(d => d.RuleId == 2), "Id", "UserName",requist.UserIdAssign);
+            ViewBag.ruleid = ruleid;
+            string xx = requist.Done.ToString();
+            ViewBag.ant = new SelectList(
+                new[] { new { Value = "True", Text = "Yes" }, new { Value = "False", Text = "No" } }
+                , "Value", "Text", xx
+            );
             return View(requist);
         }
 
@@ -129,6 +167,8 @@ namespace ChairtyApplication.Controllers
             }
             return View(requist);
         }
+
+
 
         // POST: Requists/Delete/5
         [HttpPost, ActionName("Delete")]

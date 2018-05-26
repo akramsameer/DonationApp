@@ -318,6 +318,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-ChairtyApplication-20180423081902.mdf" />
+    <Content Include="App_Data\aspnet-ChairtyApplication-20180423081902_log.ldf">
+      <DependentUpon>aspnet-ChairtyApplication-20180423081902.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\Data1.0.0.sql" />
     <Content Include="Content\assets\css\animate.css" />
     <Content Include="Content\assets\css\blueimp-gallery.min.css" />
@@ -1696,7 +1700,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
