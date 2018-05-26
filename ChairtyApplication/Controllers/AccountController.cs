@@ -164,8 +164,12 @@ namespace ChairtyApplication.Controllers
                     EmailConfirmed = true,
                     Latitude = model.Latitude,
 <<<<<<< HEAD
+<<<<<<< HEAD
                     CreditNumber = model.CreditNumber,
                     
+=======
+                    CreditNumber = model.CreditNumber
+>>>>>>> 2ec73a13adf1c55b72a47bac9868238f240d2556
 =======
                     CreditNumber = model.CreditNumber
 >>>>>>> 2ec73a13adf1c55b72a47bac9868238f240d2556
